@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar>
+    
+      <button ion-button menuToggle start>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    
+    <ion-title>
+      Janelas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let janela of janelas">
+    <ion-card-header primary (click)="itemTapped($event, janela)">{{janela.title}}</ion-card-header>
+    <!-- <ion-card-content class="colorparag" (click)="itemTapped($event, janela)">{{janela.Result[0].mensagem}}</ion-card-content> -->
+    <ion-card-content class="colorparag" (click)="itemTapped($event, janela)">
+      {{janela.fase}}: {{janela.idAmbiente}} 
+      <p>{{janela.Result}}</p>
+    </ion-card-content>
+
+    <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small class="coloraguarde" (click)="startJanela(janela)">
+            <ion-icon name="arrow-dropright"></ion-icon>
+            <div>Iniciar</div>
+          </button>
+        </ion-col>
+        <ion-col *ngIf='janela.status === "erro"'>
+          <button ion-button icon-left clear small class="colorerro" (click)="resultJanela(janela)">
+            <ion-icon name="close"></ion-icon>
+            <div>Erro</div>
+          </button>
+        </ion-col>
+        <ion-col *ngIf='janela.status === "ok"'>
+          <button ion-button icon-left clear small class="colorok" (click)="resultJanela(janela)">
+            <ion-icon name="checkmark"></ion-icon>
+            <div >Ok</div>
+          </button>
+        </ion-col>
+        <ion-col *ngIf='janela.status === "executando"'>
+          <button ion-button icon-left clear small class="coloraguarde">
+            <ion-icon name="refresh"></ion-icon>
+            <div >Executando</div>
+          </button>
+        </ion-col>
+      </ion-row>
+  </ion-card>
+
+  <ion-fab right bottom>
+    <button ion-fab mini class='item-divider' (click)="addJanela()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

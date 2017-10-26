@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf='!mudanca._id'><span class="colortitle"> Nova Mudança </span></ion-title>
+    <ion-title *ngIf='mudanca._id'><span class="colortitle">Editar Mudança</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Descrição</ion-label>
+      <ion-input type="text" [(ngModel)]="mudanca.title"></ion-input>
+    </ion-item>      
+
+    <ion-item>
+      <ion-label floating>Responsável</ion-label>
+      <ion-input type="text" [(ngModel)]="mudanca.responsavl"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Contato</ion-label>
+      <ion-input type="text" [(ngModel)]="mudanca.contato"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Codigo PAM</ion-label>
+      <ion-input type="text" [(ngModel)]="mudanca.idPAM"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>SubTask PAM</ion-label>
+      <ion-input type="text" [(ngModel)]="mudanca.idSubTaskPAM"></ion-input>
+    </ion-item>
+      
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="saveMudanca()">Salvar</button>
+    <button ion-button *ngIf='mudanca._id' (click)="deleteMudanca()">Excluir</button>
+  </div>
+  
+</ion-content>

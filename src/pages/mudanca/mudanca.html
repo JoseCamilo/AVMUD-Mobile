@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{janela.title}}
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="editJanela()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let mudanca of mudancas">
+    <ion-card-header primary (click)="itemTapped($event, mudanca)">{{mudanca.title}}</ion-card-header>
+    <ion-card-content class="colorparag" (click)="itemTapped($event, mudanca)">
+      {{mudanca.descricao}}
+    </ion-card-content>
+
+    <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear small class="coloraguarde" (click)="startMudanca(mudanca)">
+            <ion-icon name="arrow-dropright"></ion-icon>
+            <div>Iniciar</div>
+          </button>
+        </ion-col>
+        <ion-col *ngIf='mudanca.status === "erro"'>
+          <button ion-button icon-left clear small class="colorerro" (click)="resultMudanca(mudanca)">
+            <ion-icon name="close"></ion-icon>
+            <div>Erro</div>
+          </button>
+        </ion-col>
+        <ion-col *ngIf='mudanca.status === "ok"'>
+          <button ion-button icon-left clear small class="colorok" (click)="resultMudanca(mudanca)">
+            <ion-icon name="checkmark"></ion-icon>
+            <div >Ok</div>
+          </button>
+        </ion-col>
+        <ion-col *ngIf='mudanca.status === "executando"'>
+          <button ion-button icon-left clear small class="coloraguarde">
+            <ion-icon name="refresh"></ion-icon>
+            <div >Executando</div>
+          </button>
+        </ion-col>
+      </ion-row>
+  </ion-card>
+
+
+  <ion-fab right bottom>
+    <button ion-fab mini class='item-divider' (click)="addMudanca()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+
+</ion-content>

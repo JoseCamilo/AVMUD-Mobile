@@ -1,0 +1,22 @@
+<ion-menu [content]="mycontent">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+  <ion-content>
+    <ion-list>
+      <button ion-item menuClose (click)="openPage(homePage)">
+        Janelas
+      </button>
+      <button ion-item menuClose (click)="openPage(ambientePage)">
+        Ambientes
+      </button>
+      <button ion-item menuClose (click)="openPage(avisoPage)">
+        Avisos
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>

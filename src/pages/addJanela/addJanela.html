@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf='!janela._id'><span class="colortitle"> Nova Janela </span></ion-title>
+    <ion-title *ngIf='janela._id'><span class="colortitle">Editar Janela</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Título da Janela</ion-label>
+      <ion-input type="text" [(ngModel)]="janela.title"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Ambientes</ion-label>
+      <ion-select [(ngModel)]="janela.idAmbiente" multiple="true" cancelText="Cancelar" okText="Salvar">
+        <ion-option *ngFor="let ambiente of ambientes" value="{{ambiente._id}}" >{{ambiente.title}}</ion-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Fase</ion-label>
+      <ion-select [(ngModel)]="janela.fase" cancelText="Cancelar" okText="Salvar">
+        <ion-option value="Homologação">Homologação</ion-option>
+        <ion-option value="Pré-Produção">Pré-Produção</ion-option>
+        <ion-option value="Produção">Produção</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="saveJanela()">Salvar</button>
+    <button ion-button *ngIf='janela._id' (click)="deleteJanela()">Excluir</button>
+  </div>
+  
+</ion-content>

@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{janela.title}}{{mudanca.title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item-group *ngFor="let tarefa of tarefas">
+ 
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "arquivo"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.path}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "campo"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.field}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "changeset"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.changeset}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "parametro"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.SX6.x6_var}}
+    </ion-item-divider>
+
+    <ion-label *ngFor="let result of tarefa.Result">
+      <ion-item no-lines>{{result.mensagem}}</ion-item>
+    </ion-label>
+
+  </ion-item-group>
+
+  <ion-item-group *ngIf='tarefa'>
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "arquivo"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.path}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "campo"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.field}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "changeset"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.changeset}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "parametro"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.SX6.x6_var}}
+    </ion-item-divider>
+
+    <ion-label *ngFor="let result of tarefa.Result">
+      <ion-item no-lines>{{result.mensagem}}</ion-item>
+    </ion-label>
+  </ion-item-group>
+
+  <ion-fab right bottom>
+   <button ion-fab mini class='item-divider' (click)="shareJanela()"><ion-icon name="share"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

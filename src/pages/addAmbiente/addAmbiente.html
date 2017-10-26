@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf='!ambiente._id'><span class="colortitle"> Novo ambiente </span></ion-title>
+    <ion-title *ngIf='ambiente._id'><span class="colortitle">Editar ambiente</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Descrição</ion-label>
+      <ion-input type="text" [(ngModel)]="ambiente.title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Produção</ion-label>
+      <ion-input type="text" [(ngModel)]="ambiente.producao"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Pré-Produção</ion-label>
+      <ion-input type="text" [(ngModel)]="ambiente.preprod"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Homologação</ion-label>
+      <ion-input type="text" [(ngModel)]="ambiente.homolog"></ion-input>
+    </ion-item>
+  
+
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="saveJanela()">Salvar</button>
+    <button ion-button *ngIf='ambiente._id' (click)="deleteJanela()">Excluir</button>
+  </div>
+  
+</ion-content>

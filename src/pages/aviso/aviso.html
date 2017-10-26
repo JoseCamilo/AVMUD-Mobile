@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Avisos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let aviso of avisos">
+    <ion-card-header primary>{{aviso.title}}</ion-card-header>
+    <ion-card-content class="colorparag" >{{aviso.comentario}}</ion-card-content>
+  </ion-card>
+
+
+  <ion-fab right bottom>
+    <button ion-fab mini class='item-divider' (click)="addAviso()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+
+</ion-content>

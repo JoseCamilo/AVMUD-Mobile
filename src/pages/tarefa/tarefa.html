@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{mudanca.title}}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="jiraMudanca()">
+        <ion-icon name="cloud-upload"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="editMudanca()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let tarefa of tarefas">
+    <ion-card-header  class="colorparag"  (click)="itemTapped($event, tarefa)" primary>{{tarefa.type}}</ion-card-header>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "arquivo"'>{{tarefa.path}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "campo"'>{{tarefa.alias}} - {{tarefa.field}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "changeset"'>{{tarefa.changeset}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "parametro"'>{{tarefa.SX6.x6_var}}</ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small class="coloraguarde" (click)="startTarefa(tarefa)">
+          <ion-icon name="arrow-dropright"></ion-icon>
+          <div>Iniciar</div>
+        </button>
+      </ion-col>
+      <ion-col *ngIf='tarefa.status === "erro"'>
+        <button ion-button icon-left clear small class="colorerro" (click)="resultTarefa(tarefa)">
+          <ion-icon name="close"></ion-icon>
+          <div>Erro</div>
+        </button>
+      </ion-col>
+      <ion-col *ngIf='tarefa.status === "ok"'>
+        <button ion-button icon-left clear small class="colorok" (click)="resultTarefa(tarefa)">
+          <ion-icon name="checkmark"></ion-icon>
+          <div >Ok</div>
+        </button>
+      </ion-col>
+      <ion-col *ngIf='tarefa.status === "executando"'>
+        <button ion-button icon-left clear small class="coloraguarde">
+          <ion-icon name="refresh"></ion-icon>
+          <div >Executando</div>
+        </button>
+      </ion-col>
+      <ion-col *ngIf='tarefa.status === "indisponivel"'>
+        <button ion-button icon-left clear small class="colorerro">
+          <ion-icon name="alert"></ion-icon>
+          <div >Serviço indisponível</div>
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+
+  <ion-fab right bottom>
+    <button ion-fab mini class='item-divider' (click)="addTarefa()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+  
+</ion-content>

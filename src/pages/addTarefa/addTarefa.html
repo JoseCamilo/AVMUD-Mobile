@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf='!tarefa._id'><span class="colortitle"> Nova tarefa </span></ion-title>
+    <ion-title *ngIf='tarefa._id'><span class="colortitle">Editar tarefa</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Tipo</ion-label>
+      <ion-select [(ngModel)]="tarefa.type">
+        <ion-option value="arquivo">Arquivo</ion-option>
+        <ion-option value="campo">Campo</ion-option>
+        <ion-option value="changeset">Fontes</ion-option>
+        <ion-option value="parametro">Parâmetro</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf='tarefa.type === "arquivo"'>
+      <ion-label floating>Endereço do Arquivo</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.path"></ion-input>
+    </ion-item>
+    
+
+    <ion-item *ngIf='tarefa.type === "campo"'>
+      <ion-label floating>Tabela</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.alias"></ion-input>
+    </ion-item>
+    
+
+    <ion-item *ngIf='tarefa.type === "campo"'>
+      <ion-label floating>Campo</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.field"></ion-input>
+    </ion-item>
+    
+
+
+    <ion-item *ngIf='tarefa.type === "changeset"'>
+      <ion-label floating>Changeset</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.changeset"></ion-input>
+    </ion-item>
+    
+
+    <ion-item *ngIf='tarefa.type === "parametro"'>
+      <ion-label floating>Parâmetro</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_var"></ion-input>
+    </ion-item>
+    
+    <ion-item *ngIf='tarefa.type === "parametro"'>
+      <ion-label floating>Conteudo Português</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_conteud"></ion-input>
+    </ion-item>
+      
+    <ion-item *ngIf='tarefa.type === "parametro"'>
+      <ion-label floating>Conteudo Espanhol</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_contspa"></ion-input>
+    </ion-item>
+          
+    <ion-item *ngIf='tarefa.type === "parametro"'>
+      <ion-label floating>Conteudo Inglês</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_conteng"></ion-input>
+    </ion-item>
+      
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="saveTarefa()">Salvar</button>
+    <button ion-button *ngIf='tarefa._id' (click)="deleteTarefa()">Excluir</button>
+  </div>
+  
+</ion-content>
