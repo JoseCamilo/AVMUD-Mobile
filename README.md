@@ -7,3 +7,4 @@ Acelerador Verificação de Mudança
 
 ## AVMUD-Mobile
 
+http://thfservices.totvs.com.br/mobile-alpha/assets/graphics/logo-thf.png
