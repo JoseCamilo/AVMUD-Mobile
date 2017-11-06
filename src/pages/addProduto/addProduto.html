@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf='!produto._id'><span class="colortitle">Novo produto</span></ion-title>
+    <ion-title *ngIf='produto._id'><span class="colortitle">Editar produto</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Titulo</ion-label>
+      <ion-input type="text" [(ngModel)]="produto.title"></ion-input>
+    </ion-item>  
+
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="saveJanela()">Salvar</button>
+    <button ion-button *ngIf='produto._id' (click)="deleteJanela()">Excluir</button>
+  </div>
+  
+</ion-content>

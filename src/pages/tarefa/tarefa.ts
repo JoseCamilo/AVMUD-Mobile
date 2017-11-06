@@ -8,6 +8,7 @@ import { Janela } from "../../models/janela.model";
 import { Mudanca } from "../../models/mudanca.model";
 import { AddTarefaPage } from "../addTarefa/addTarefa";
 import { StatusPage } from "../status/status";
+import { AddMudancaPage } from "../addMudanca/addMudanca";
 
 
 @Component({
@@ -184,7 +185,9 @@ export class TarefaPage {
   }
 
   editMudanca(){
-
+    this.navCtrl.push(AddMudancaPage, {
+      mudanca: this.mudanca
+    });
   }
 
   startTarefa(tarefa){

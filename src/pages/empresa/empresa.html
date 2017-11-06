@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Empresas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item *ngFor="let empresa of empresas" (click)="itemTapped($event, empresa)">
+      {{ empresa.title }}
+    </button> 
+  </ion-list>
+
+
+  <ion-fab right bottom>
+    <button ion-fab mini class='item-divider' (click)="addEmpresa()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+
+</ion-content>

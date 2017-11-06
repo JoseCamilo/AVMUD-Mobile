@@ -12,9 +12,14 @@
       <ion-label floating>Tipo</ion-label>
       <ion-select [(ngModel)]="tarefa.type">
         <ion-option value="arquivo">Arquivo</ion-option>
+        <ion-option value="tabela">Tabela</ion-option>
         <ion-option value="campo">Campo</ion-option>
-        <ion-option value="changeset">Fontes</ion-option>
+        <ion-option value="indice">Índice</ion-option>
+        <ion-option value="changeset">ChangeSet</ion-option>
+        <ion-option value="fonte">Fonte</ion-option>
         <ion-option value="parametro">Parâmetro</ion-option>
+        <ion-option value="gatilho">Gatilho</ion-option>
+        <ion-option value="consulta">Consulta Padrão</ion-option>
       </ion-select>
     </ion-item>
 
@@ -22,47 +27,101 @@
       <ion-label floating>Endereço do Arquivo</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.path"></ion-input>
     </ion-item>
-    
 
-    <ion-item *ngIf='tarefa.type === "campo"'>
+    <!-- TABELA -->
+    <ion-item *ngIf='tarefa.type === "tabela"'>
       <ion-label floating>Tabela</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.alias"></ion-input>
     </ion-item>
-    
 
+    <!-- CAMPO -->
     <ion-item *ngIf='tarefa.type === "campo"'>
       <ion-label floating>Campo</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.field"></ion-input>
     </ion-item>
+
+    <!-- INDICE -->
+    <ion-item *ngIf='tarefa.type === "indice"'>
+      <ion-label floating>Tabela</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.alias"></ion-input>
+    </ion-item>
+    <ion-item *ngIf='tarefa.type === "indice" && !tarefa.nickname'>
+      <ion-label floating>Ordem</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.ordem"></ion-input>
+    </ion-item>
+    <ion-item *ngIf='tarefa.type === "indice" && !tarefa.ordem'>
+      <ion-label floating>Nickname</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.nickname"></ion-input>
+    </ion-item>
     
-
-
+    <!-- CHANGESET -->
     <ion-item *ngIf='tarefa.type === "changeset"'>
       <ion-label floating>Changeset</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.changeset"></ion-input>
     </ion-item>
-    
+    <ion-item *ngIf='tarefa.type === "changeset"'>
+      <ion-label floating>Collection</ion-label>
+      <ion-select [(ngModel)]="tarefa.collection" cancelText="Cancelar" okText="Salvar">
+        <ion-option value="TDITOTVS12">TDITOTVS12</ion-option>
+        <ion-option value="CD-SP">CD-SP Padrão</ion-option>
+      </ion-select>
+    </ion-item>
 
+    <!-- FONTE -->
+    <ion-item *ngIf='tarefa.type === "fonte"'>
+      <ion-label floating>Changeset</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.changeset"></ion-input>
+    </ion-item>
+    <ion-item *ngIf='tarefa.type === "fonte"'>
+      <ion-label floating>Collection</ion-label>
+      <ion-select [(ngModel)]="tarefa.collection" cancelText="Cancelar" okText="Salvar">
+        <ion-option value="TDITOTVS12">TDITOTVS12</ion-option>
+        <ion-option value="CD-SP">CD-SP Padrão</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf='tarefa.type === "fonte"'>
+      <ion-label floating>Fonte</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.fonte"></ion-input>
+    </ion-item>
+
+    <!-- PARAMETRO -->
+    <ion-item *ngIf='tarefa.type === "parametro"'>
+      <ion-label floating>Filial</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.filial"></ion-input>
+    </ion-item>
     <ion-item *ngIf='tarefa.type === "parametro"'>
       <ion-label floating>Parâmetro</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_var"></ion-input>
-    </ion-item>
-    
+    </ion-item>    
     <ion-item *ngIf='tarefa.type === "parametro"'>
       <ion-label floating>Conteudo Português</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_conteud"></ion-input>
-    </ion-item>
-      
+    </ion-item>      
     <ion-item *ngIf='tarefa.type === "parametro"'>
       <ion-label floating>Conteudo Espanhol</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_contspa"></ion-input>
-    </ion-item>
-          
+    </ion-item>          
     <ion-item *ngIf='tarefa.type === "parametro"'>
       <ion-label floating>Conteudo Inglês</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.SX6.x6_conteng"></ion-input>
     </ion-item>
-      
+
+    <!-- GATILHO -->
+    <ion-item *ngIf='tarefa.type === "gatilho"'>
+      <ion-label floating>Campo</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.field"></ion-input>
+    </ion-item>
+    <ion-item *ngIf='tarefa.type === "gatilho"'>
+      <ion-label floating>Ordem</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.ordem"></ion-input>
+    </ion-item>
+
+    <!-- CONSULTA -->
+    <ion-item *ngIf='tarefa.type === "consulta"'>
+      <ion-label floating>Consulta</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.consulta"></ion-input>
+    </ion-item>
+
   </ion-list>
 
   <div align="middle">

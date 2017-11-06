@@ -7,6 +7,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ToastController, AlertController, ViewController, ModalController } from 'ionic-angular';
 import { Aviso } from "../../models/aviso.model";
 import { StatusPage } from "../status/status";
+import { AddAvisoPage } from "../addAviso/addAviso";
 
 
 @Component({
@@ -22,7 +23,7 @@ export class AvisoPage {
   }
 
   addAviso() {
-    //this.navCtrl.push(AddMudancaPage, {});
+    this.navCtrl.push(AddAvisoPage, {});
   }
 
   itemTapped(event, janela) {

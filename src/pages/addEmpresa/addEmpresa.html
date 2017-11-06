@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf='!empresa._id'><span class="colortitle">Nova empresa</span></ion-title>
+    <ion-title *ngIf='empresa._id'><span class="colortitle">Editar empresa</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Título</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Código da Empresa</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.codSM0"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Ambiente no Servidor</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.envServer"></ion-input>
+    </ion-item>
+  
+
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="saveJanela()">Salvar</button>
+    <button ion-button *ngIf='empresa._id' (click)="deleteJanela()">Excluir</button>
+  </div>
+  
+</ion-content>

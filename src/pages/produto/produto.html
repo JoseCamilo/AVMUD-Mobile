@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Produtos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let produto of produtos" (click)="produto.show = !produto.show">
+    <ion-card-header>
+      {{ produto.title }}
+    </ion-card-header>
+
+    <ion-list *ngIf='produto.show'>
+      <button ion-item (click)="itemAmbientes($event, produto)">
+        <ion-icon name="locate" item-start></ion-icon>
+        Ambientes
+      </button>
+      <button ion-item (click)="itemEmpresas($event, produto)">
+        <ion-icon name="podium" item-start></ion-icon>
+        Empresas
+      </button> 
+    </ion-list>
+  </ion-card>
+
+
+  <ion-fab right bottom>
+    <button ion-fab mini class='item-divider' (click)="addProduto()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+
+</ion-content>

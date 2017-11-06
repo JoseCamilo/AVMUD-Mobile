@@ -2,16 +2,16 @@ export class Ambiente {
     
     _id: string;
     title: string;
-    producao: string;
-    preprod: string;
-    homolog: string;
+    idProduto: string;
+    fase: string;
+    endereco: string;
     
     static adatp(): Ambiente {
         let ambiente = new Ambiente();
         ambiente.title = "";
-        ambiente.producao = "";
-        ambiente.preprod = "";
-        ambiente.homolog = "";
+        ambiente.idProduto = "";
+        ambiente.fase = "";
+        ambiente.endereco = "";
         return ambiente;
     }    
 }

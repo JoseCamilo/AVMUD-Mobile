@@ -4,7 +4,6 @@ import { Janela } from "../../models/janela.model";
 import { MudancaPage } from "../mudanca/mudanca";
 import { AddJanelaPage } from "../addJanela/addJanela";
 import { StatusPage } from "../status/status";
-import { SQLite, SQLiteObject } from "@ionic-native/sqlite";
 
 
 @Component({
@@ -16,7 +15,7 @@ export class HomePage {
   janelas: Janela[] = [];
 
   
-  constructor(public navCtrl: NavController, public platform: Platform, private sqlite: SQLite) {
+  constructor(public navCtrl: NavController, public platform: Platform) {
     
   }
 
@@ -44,45 +43,28 @@ export class HomePage {
     //   }
     // );
 
-    this.platform.ready().then(() => {
-      this.refresh();
-    });  
+
+    this.janelas = [];
+    let element = new Janela();
+    let element2 = new Janela();
+    let element3 = new Janela();
+    let element4 = new Janela();
+
+    
+    element.title = "Janela 11";
+    element.idPAM = "PAM-900";
+    this.janelas.push(element);
+
+    
+    element2.title = "Janela 33";
+    element2.idPAM = "PAM-552"
+    this.janelas.push(element2);
              
   }
 
   refresh(){
     
-    this.sqlite.create({
-                  name: 'data.db',
-                  location: 'default'
-            })
-            .then((db: SQLiteObject) => {
-
-              db.executeSql("SELECT * FROM janela", []).then((data) => {
-                    
-                    let janela: Janela;
-                    this.janelas = [];
-
-                    if(data.rows.length > 0) {
-                        
-                      for(var i = 0; i < data.rows.length; i++) {
-                            
-                        janela = new Janela().Janela( data.rows.item(i)._id, 
-                                                      data.rows.item(i).title,
-                                                      data.rows.item(i).status, 
-                                                      this.convertStringToArray(data.rows.item(i).idAmbiente),
-                                                      data.rows.item(i).fase, 
-                                                      data.rows.item(i).Result );
-
-                        this.janelas.push(janela);
-                      }
-
-                    }
-                }, (e) => {
-                    console.log("Errot: " + JSON.stringify(e));
-                });
-            });
-
+    
    }
 
   resultJanela(janela){
@@ -103,63 +85,8 @@ export class HomePage {
   }
 
   startJanela(janela){
-    var currentdate = new Date(); 
-    var datetime =  currentdate.getDate() + "/"
-                    + (currentdate.getMonth()+1)  + "/" 
-                    + currentdate.getFullYear() + " "  
-                    + currentdate.getHours() + ":"  
-                    + currentdate.getMinutes();
-
-    this.sqlite.create({
-                  name: 'data.db',
-                  location: 'default'
-            })
-            .then((db: SQLiteObject) => {
-              
-              if(janela._id){
-                let query = 'UPDATE janela SET status=?,Result=? WHERE _id=?';
-                db.executeSql(query, ["executando", 
-                                    "Em execução "+datetime,
-                                    janela._id])
-                      .then(() => {console.log('Executed SQL updatejanela start janela ');
-                                    this.readJanelas();
-
-                                    setTimeout(() => {           
-                                    
-                                      this.sqlite.create({
-                                            name: 'data.db',
-                                            location: 'default'
-                                      })
-                                      .then((db: SQLiteObject) => {
-                                        
-                                        if(janela._id){
-                                          let query = 'UPDATE janela SET status=?,Result=? WHERE _id=?';
-                                          db.executeSql(query, ["erro", 
-                                                              "Executado em "+datetime,
-                                                              janela._id])
-                                                .then(() => console.log('Executed SQL updatejanela start janela 2 '))
-                                                .catch(e => console.log(e));
-                                        }
-
-                                      })
-                                      .catch(e => console.log(e));
-                                    }, 15000);
-                      })
-                      .catch(e => console.log(e));
-              }
-
-            })
-            .catch(e => console.log(e));
-  }
-
-  private strSeparator = "__,__";
-  public convertStringToArray(str: string){
-      var arr: string[];
-      arr = str.split(this.strSeparator);
-
-      return arr;
-  }
-  
+    
+  } 
 
 }
 

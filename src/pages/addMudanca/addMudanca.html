@@ -10,13 +10,23 @@
   <ion-list>
 
     <ion-item>
-      <ion-label floating>Descrição</ion-label>
+      <ion-label floating>Título</ion-label>
       <ion-input type="text" [(ngModel)]="mudanca.title"></ion-input>
-    </ion-item>      
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Descrição</ion-label>
+      <ion-textarea type="text" [(ngModel)]="mudanca.descricao"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Cliente</ion-label>
+      <ion-input type="text" [(ngModel)]="mudanca.cliente"></ion-input>
+    </ion-item> 
 
     <ion-item>
       <ion-label floating>Responsável</ion-label>
-      <ion-input type="text" [(ngModel)]="mudanca.responsavl"></ion-input>
+      <ion-input type="text" [(ngModel)]="mudanca.responsavel"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -32,6 +42,20 @@
     <ion-item>
       <ion-label floating>SubTask PAM</ion-label>
       <ion-input type="text" [(ngModel)]="mudanca.idSubTaskPAM"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Ambientes</ion-label>
+      <ion-select [(ngModel)]="mudanca.ambiente" multiple="true" cancelText="Cancelar" okText="Salvar">
+        <ion-option *ngFor="let ambiente of ambientes" value="{{ambiente._id}}" >{{ambiente.title}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Empresas</ion-label>
+      <ion-select [(ngModel)]="mudanca.empresa" multiple="true" cancelText="Cancelar" okText="Salvar">
+        <ion-option *ngFor="let empresa of empresas" value="{{empresa._id}}" >{{empresa.title}}</ion-option>
+      </ion-select>
     </ion-item>
       
   </ion-list>

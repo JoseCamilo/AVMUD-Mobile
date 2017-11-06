@@ -31,7 +31,9 @@ export class MudancaPage {
   }
 
   addMudanca() {
-    this.navCtrl.push(AddMudancaPage, {});
+    this.navCtrl.push(AddMudancaPage, {
+      janela: this.janela
+    });
   }
 
   itemTapped(event, mudanca) {
@@ -70,7 +72,7 @@ export class MudancaPage {
     element.descricao = "Cliente: Estratégia Comercial" + "\n" +
                         "Analista TI: Marcio Tiltscher"+ "\n" +
                         "Descrição da Demanda: Proposta de migração intera com valor de reajuste negativo.";
-    element.Result = [{mensagem: "Executada em 06/10/2017 21:34"}];
+    element.Result = "Executada em 06/10/2017 21:34";
     this.mudancas.push(element);
     
     element2._id = "2";
@@ -79,7 +81,7 @@ export class MudancaPage {
     element2.descricao = "Cliente: Engenharia Corporativa"+ "\n" +
                           "Analista TI: Moises Osti"+ "\n" +
                         "Descrição da Demanda: Ajustar sincronismo com os novos campos.";
-    element2.Result = [{mensagem: "Executada em 06/10/2017 21:34"}];
+    element2.Result = "Executada em 06/10/2017 21:34";
     this.mudancas.push(element2);
 
     element3._id = "3";
@@ -88,7 +90,7 @@ export class MudancaPage {
     element3.descricao = "Cliente: Modelos de Negócios"+ "\n" +
                         "Analista TI: Eder Oliveira" + "\n" +
                         "Descrição da Demanda: Validação das Regras de Dependência na gravação da proposta";
-    element3.Result = [{mensagem: "Executada em 06/10/2017 21:34"}];
+    element3.Result = "Executada em 06/10/2017 21:34";
     this.mudancas.push(element3);
   }
 

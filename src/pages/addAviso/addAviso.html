@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf='!aviso._id'><span class="colortitle">Novo aviso</span></ion-title>
+    <ion-title *ngIf='aviso._id'><span class="colortitle">Editar aviso</span></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>   
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Título</ion-label>
+      <ion-input type="text" [(ngModel)]="aviso.title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Comentário</ion-label>
+      <ion-input type="text" [(ngModel)]="aviso.comentario"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="saveJanela()">Salvar</button>
+    <button ion-button *ngIf='aviso._id' (click)="deleteJanela()">Excluir</button>
+  </div>
+  
+</ion-content>

@@ -22,6 +22,11 @@ import { StatusPage } from "../pages/status/status";
 import { SocialSharing } from "@ionic-native/social-sharing";
 import { SQLite } from "@ionic-native/sqlite";
 import { MyDb } from "../providers/MyDb";
+import { ProdutoPage } from "../pages/produto/produto";
+import { AddEmpresaPage } from "../pages/addEmpresa/addEmpresa";
+import { AddProdutoPage } from "../pages/addProduto/addProduto";
+import { EmpresaPage } from "../pages/empresa/empresa";
+import { AddAvisoPage } from "../pages/addAviso/addAviso";
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import { MyDb } from "../providers/MyDb";
     AmbientePage,
     AddAmbientePage,
     AvisoPage,
-    StatusPage
+    StatusPage,
+    ProdutoPage,
+    AddProdutoPage,
+    EmpresaPage,
+    AddEmpresaPage,
+    AddAvisoPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +64,12 @@ import { MyDb } from "../providers/MyDb";
     AmbientePage,
     AddAmbientePage,
     AvisoPage,
-    StatusPage
+    StatusPage,
+    ProdutoPage,
+    AddProdutoPage,
+    EmpresaPage,
+    AddEmpresaPage,
+    AddAvisoPage
   ],
   providers: [
     StatusBar,

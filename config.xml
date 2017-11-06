@@ -86,5 +86,4 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <engine name="android" spec="~6.1.2" />
-    <plugin name="cordova-sqlite-storage" spec="~2.0.4" />
 </widget>

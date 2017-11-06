@@ -8,15 +8,17 @@ import { ToastController, AlertController, ViewController, ModalController } fro
 import { Ambiente } from "../../models/ambiente.model";
 import { AddAmbientePage } from "../addAmbiente/addAmbiente";
 import { Produto } from "../../models/produto.model";
+import { Empresa } from "../../models/empresa.model";
+import { AddEmpresaPage } from "../addEmpresa/addEmpresa";
 
 
 @Component({
-  selector: 'page-ambiente',
-  templateUrl: 'ambiente.html'
+  selector: 'page-empresa',
+  templateUrl: 'empresa.html'
 })
-export class AmbientePage {
+export class EmpresaPage {
 
-  ambientes: Ambiente[] = [];
+  empresas: Empresa[] = [];
   produto: Produto = new Produto();
 
   constructor(public webservice: WsJanelas, private toastCtrl: ToastController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, public viewCtrl: ViewController, public modalCtrl: ModalController) {
@@ -25,26 +27,26 @@ export class AmbientePage {
       this.produto = navParams.get('produto') as Produto;
     }
 
-    this.readAmbientes();
+    this.readEmpresas();
 
   }
 
 
-  itemTapped(event, ambiente) {
-    this.navCtrl.push(AddAmbientePage, {
-      ambiente: ambiente
+  itemTapped(event, empresa) {
+    this.navCtrl.push(AddEmpresaPage, {
+      empresa: empresa
     });
   }
 
-  addAmbiente(){
-    this.navCtrl.push(AddAmbientePage, {});
+  addEmpresa(){
+    this.navCtrl.push(AddEmpresaPage, {});
   }
 
   ionViewDidEnter() {
-    this.readAmbientes();
+    this.readEmpresas();
   }
 
-  readAmbientes() {
+  readEmpresas() {
 
     // this.webservice.getJanelas().subscribe(
     //   (res) => {
@@ -52,35 +54,30 @@ export class AmbientePage {
     //   }
     // );
 
-    this.ambientes = [];
-    let element = new Ambiente();
-    let element2 = new Ambiente();
-    let element3 = new Ambiente();
-    let element4 = new Ambiente();
+    this.empresas = [];
+    let element = new Empresa();
+    let element2 = new Empresa();
+    let element3 = new Empresa();
+    let element4 = new Empresa();
 
-    element._id = "1";
-    element.title = "Homologação 198";
-    element.endereco = "http://erpwstfs.cp.totvs.com.br/ws_ssimxtfs/";
-    element.fase = "Homologação";
-    this.ambientes.push(element);
+    element._id = '1';
+    element.title = "Matriz";
+    element.codSM0 = "00";
+    element.envServer = "";
+    this.empresas.push(element);
 
-    element2._id = "1";
-    element2.title = "Pré Oficial";
-    element2.endereco = "http://erpwstfs.cp.totvs.com.br/ws_ssimxtfs/";
-    element2.fase = "Pré-Produção";
-    this.ambientes.push(element2);
+    element2._id = '2';
+    element2.title = "MI Mexico";
+    element2.codSM0 = "03";
+    element2.envServer = "TOTVS_MI";
+    this.empresas.push(element2);
 
-    element3._id = "1";
-    element3.title = "Produção Oficial";
-    element3.endereco = "http://erpwstfs.cp.totvs.com.br/ws_ssimxtfs/";
-    element3.fase = "Produção";
-    this.ambientes.push(element3);
+    element3._id = '3';    
+    element3.title = "MI Argentina";
+    element3.codSM0 = "04";
+    element3.envServer = "TOTVS_MI";
+    this.empresas.push(element3);
 
-    element4._id = "1";
-    element4.title = "Homologação 191";
-    element4.endereco = "http://erpwstfs.cp.totvs.com.br/ws_ssimxtfs/";
-    element4.fase = "Homologação";
-    this.ambientes.push(element4);
   }
 
   // startJanela(janela){
@@ -125,7 +122,7 @@ showAlert(msg) {
   doRefresh(refresher) {
     
     setTimeout(() => {
-      this.readAmbientes();
+      this.readEmpresas();
       refresher.complete();
       
     }, 2000);

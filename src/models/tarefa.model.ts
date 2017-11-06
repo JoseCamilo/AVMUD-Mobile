@@ -13,11 +13,13 @@ export class Tarefa {
         x6_contspa: string,
         x6_conteng: string
     };
-    order: string;
+    ordem: string;
     nickname: string;
     fonte: string;
     consulta: string;
     status: string;
+    collection: string;
+    filial: string;
     Result: [{mensagem: string}];
 
     
@@ -33,11 +35,13 @@ export class Tarefa {
                         x6_contspa:"",
                         x6_conteng:""};
         tarefa.status = "";
-        tarefa.order = "";
+        tarefa.ordem = "";
         tarefa.nickname = "";
         tarefa.fonte = "";
         tarefa.consulta = "";
         tarefa.status = "";
+        tarefa.collection = "";
+        tarefa.filial = "";
         tarefa.Result = [{mensagem: ""}]
         return tarefa;
     }    
@@ -49,17 +53,6 @@ export class SX6 {
     x6_contspa: string;
     x6_conteng: string;
 }
-
-
-// TYPES TAREFA
-// arquivo: path,
-// tabela: alias,
-// campo: alias, field,
-// indice: alias, order, nickname
-// changeset: changeset,
-// fonte: changeset, fonte,
-// parametro: SX6{},
-// gatilho: field, order,
-// consultaP: consulta,
+        
 
         
