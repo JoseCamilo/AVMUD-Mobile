@@ -6,5 +6,3 @@ Acelerador Verificação de Mudança
 * [AVMUD-Protheus](https://github.com/JoseCamilo/AVMUD-Protheus) - Responsável por disponibilizar APIs de funcionalidades que serão executadas no Protheus.
 
 ## AVMUD-Mobile
-
-![alt text](http://thfservices.totvs.com.br/mobile-alpha/assets/graphics/logo-thf.png)
