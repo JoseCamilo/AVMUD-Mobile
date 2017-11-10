@@ -1,7 +1,6 @@
-import { Janela } from './../../models/janela.model';
 import { Component } from '@angular/core';
 import { IonicPage,  NavController,  NavParams,  AlertController,  ViewController} from 'ionic-angular';
-import { WsJanelas } from '../../providers/wsJanelas';
+import { WsAvisos } from '../../providers/wsAvisos';
 import { Aviso } from "../../models/aviso.model";
 
 
@@ -14,7 +13,7 @@ export class AddAvisoPage {
 
   private aviso: Aviso = new Aviso();
 
-  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsJanelas, public alertCtrl: AlertController) {
+  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsAvisos, public alertCtrl: AlertController) {
     if (navParams.get('aviso')) {
       this.aviso = navParams.get('aviso') as Aviso;
     } else {
@@ -23,54 +22,54 @@ export class AddAvisoPage {
   }
 
 
-  // saveJanela(){
+  saveAviso(){
     
-  //   this.webservice.saveJanela(this.janela).subscribe(
-  //     (res) => {
-  //       this.showAlert('Item salvo com sucesso!');
-  //       this.viewCtrl.dismiss();
-  //     },
-  //     (err) => {
-  //       this.showErrorAlert(err);
-  //     }
-  //   );    
-  // }
+    this.webservice.saveAviso(this.aviso).subscribe(
+      (res) => {
+        this.showAlert('Item salvo com sucesso!');
+        this.viewCtrl.dismiss();
+      },
+      (err) => {
+        this.showErrorAlert(err);
+      }
+    );    
+  }
   
-  // deleteJanela() {
-  //   this.showConfirm();
-  // }
+  deleteAviso() {
+    this.showConfirm();
+  }
 
 
-  // showConfirm() {
-  //   var that = this;
-  //   let confirm = this.alertCtrl.create({
-  //     title: 'Exclusão',
-  //     message: 'Tem certeza que deseja excluir?',
-  //     buttons: [
-  //       {
-  //         text: 'Não',
-  //         handler: () => {
+  showConfirm() {
+    var that = this;
+    let confirm = this.alertCtrl.create({
+      title: 'Exclusão',
+      message: 'Tem certeza que deseja excluir?',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => {
            
-  //         }
-  //       },
-  //       {
-  //         text: 'Sim',
-  //         handler: () => {
-  //           that.webservice.deleteJanela(that.janela._id).subscribe(
-  //             (res) => {
-  //               that.showAlert('Excluído com sucesso!');
-  //               this.navCtrl.popToRoot();
-  //             },
-  //             (err) => {
-  //               that.showErrorAlert(err);
-  //             }
-  //           )
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   confirm.present();
-  // }
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            that.webservice.deleteAviso(that.aviso._id).subscribe(
+              (res) => {
+                that.showAlert('Excluído com sucesso!');
+                this.navCtrl.pop();
+              },
+              (err) => {
+                that.showErrorAlert(err);
+              }
+            )
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
   showAlert(msg) {
     let alert = this.alertCtrl.create({

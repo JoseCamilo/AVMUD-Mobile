@@ -20,10 +20,16 @@
 
   <ion-card *ngFor="let tarefa of tarefas">
     <ion-card-header  class="colorparag"  (click)="itemTapped($event, tarefa)" primary>{{tarefa.type}}</ion-card-header>
+    
     <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "arquivo"'>{{tarefa.path}}</ion-card-content>
-    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "campo"'>{{tarefa.alias}} - {{tarefa.field}}</ion-card-content>
-    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "changeset"'>{{tarefa.changeset}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "tabela"'>{{tarefa.alias}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "campo"'>{{tarefa.field}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "indice"'>{{tarefa.alias}} {{tarefa.ordem}} {{tarefa.nickname}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "changeset"'>{{tarefa.changeset}} {{tarefa.collection}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "fonte"'>{{tarefa.fonte}} {{tarefa.changeset}} {{tarefa.collection}}</ion-card-content>
     <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "parametro"'>{{tarefa.SX6.x6_var}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "gatilho"'>{{tarefa.field}} {{tarefa.ordem}}</ion-card-content>
+    <ion-card-content class="colorparag"  (click)="itemTapped($event, tarefa)" *ngIf='tarefa.type === "consulta"'>{{tarefa.consulta}}</ion-card-content>
 
     <ion-row>
       <ion-col>

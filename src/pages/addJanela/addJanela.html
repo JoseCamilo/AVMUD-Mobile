@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf='!janela._id'><span class="colortitle"> Nova Janela </span></ion-title>
+    <ion-title *ngIf='!janela._id'><span class="colortitle">Nova Janela</span></ion-title>
     <ion-title *ngIf='janela._id'><span class="colortitle">Editar Janela</span></ion-title>
   </ion-navbar>
 </ion-header>
@@ -15,9 +15,9 @@
     </ion-item>
   
     <ion-item>
-      <ion-label floating>Ambientes</ion-label>
-      <ion-select [(ngModel)]="janela.idAmbiente" multiple="true" cancelText="Cancelar" okText="Salvar">
-        <ion-option *ngFor="let ambiente of ambientes" value="{{ambiente._id}}" >{{ambiente.title}}</ion-option>
+      <ion-label floating>Produtos</ion-label>
+      <ion-select [(ngModel)]="janela.idProduto" multiple="true" cancelText="Cancelar" okText="Salvar">
+        <ion-option *ngFor="let produto of produtos" value="{{produto._id}}" >{{produto.title}}</ion-option>
       </ion-select>
     </ion-item>
   
@@ -28,6 +28,11 @@
         <ion-option value="Pré-Produção">Pré-Produção</ion-option>
         <ion-option value="Produção">Produção</ion-option>
       </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>PAM Principal</ion-label>
+      <ion-input type="text" [(ngModel)]="janela.idPam"></ion-input>
     </ion-item>
 
   </ion-list>

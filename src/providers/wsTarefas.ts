@@ -9,8 +9,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WsTarefas {
 
-  private url:string = 'http://172.16.93.227:3000/api/janela/itens';
-  private urlGrv:string = 'http://172.16.93.227:3000/api/janela';
+  private url:string = 'http://172.16.93.227:3000/api/tarefa';
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
@@ -18,8 +17,8 @@ export class WsTarefas {
   constructor(public http: Http) {
   }
 
-  public getTarefas(id: string) : Observable<Tarefa[]> {
-    return this.http.get(this.url + '/' + id)
+  public getTarefas(idMudanca: string) : Observable<Tarefa[]> {
+    return this.http.get(this.url + '/' + idMudanca)
       .map(res => res.json())
       .map(
         (tarefa) => {
@@ -33,20 +32,20 @@ export class WsTarefas {
       });
   }
 
-  public saveTarefas(tarefa: Tarefa){
+  public saveTarefa(tarefa: Tarefa){
     if(tarefa._id) {
-      return this.http.put(this.urlGrv, tarefa);
+      return this.http.put(this.url, tarefa);
     } else {
-      return this.http.post(this.urlGrv, tarefa);
+      return this.http.post(this.url, tarefa);
     }
   }
 
   public deleteTarefa(id: string){
-    return this.http.delete(this.urlGrv + '/' + id);
+    return this.http.delete(this.url + '/' + id);
   }
 
   public startTarefa(tarefa: Tarefa){
-    return this.http.put(this.urlGrv + "/inicia", {idJanela: tarefa.idMudanca , id: tarefa._id});
+    return this.http.put(this.url + "/inicia", {idTarefa: tarefa._id});
   }
   
 }

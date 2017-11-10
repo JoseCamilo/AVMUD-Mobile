@@ -1,6 +1,6 @@
 export class Aviso {
     
-    _id: number;
+    _id: string;
     title: string;
     comentario: string;
     

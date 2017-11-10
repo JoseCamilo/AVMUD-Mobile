@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{janela.title}}{{mudanca.title}}</ion-title>
+    <ion-title>{{janela.title}} {{mudanca.title}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,6 +15,13 @@
       {{tarefa.type}} {{tarefa.path}}
     </ion-item-divider>
 
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "tabela"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.alias}}
+    </ion-item-divider>
+
     <ion-item-divider class='item-divider' *ngIf='tarefa.type === "campo"'>
       <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
@@ -22,19 +29,47 @@
       {{tarefa.type}} {{tarefa.field}}
     </ion-item-divider>
 
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "indice"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.alias}} {{tarefa.ordem}} {{tarefa.nickname}}
+    </ion-item-divider>
+
     <ion-item-divider class='item-divider' *ngIf='tarefa.type === "changeset"'>
       <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
-      {{tarefa.type}} {{tarefa.changeset}}
+      {{tarefa.type}} {{tarefa.changeset}} {{tarefa.collection}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "fonte"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.fonte}} {{tarefa.changeset}} {{tarefa.collection}}
     </ion-item-divider>
 
     <ion-item-divider class='item-divider' *ngIf='tarefa.type === "parametro"'>
       <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
-      {{tarefa.type}} {{tarefa.SX6.x6_var}}
+      {{tarefa.type}} {{tarefa.SX6.x6_var}} {{tarefa.filial}}
     </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "gatilho"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.field}} {{tarefa.ordem}}
+    </ion-item-divider>
+
+    <ion-item-divider class='item-divider' *ngIf='tarefa.type === "consulta"'>
+      <ion-icon *ngIf='tarefa.status === "erro"' class="colorerro" name="close"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "ok"' class="colorok" name="checkmark"></ion-icon>
+      <ion-icon *ngIf='tarefa.status === "indisponivel"' class="colorerro" name="alert"></ion-icon>
+      {{tarefa.type}} {{tarefa.consulta}}
+    </ion-item-divider>       
 
     <ion-label *ngFor="let result of tarefa.Result">
       <ion-item no-lines>{{result.mensagem}}</ion-item>

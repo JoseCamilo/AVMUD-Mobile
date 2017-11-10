@@ -7,11 +7,11 @@ export class Mudanca {
     status: string;
     responsavel: string;
     contato: string;
-    idJanela: number;
+    idJanela: string;
     idPAM: string;
     idSubTaskPAM: string;
-    empresa: [{codigo: string, titulo: string}];
-    ambiente: [{codigo: string, titulo: string}];
+    empresa: [string];
+    ambiente: [string];
     Result: string;
     
     static adatp(): Mudanca {
@@ -21,11 +21,11 @@ export class Mudanca {
         mudanca.status = "";
         mudanca.responsavel = "";
         mudanca.contato = "";
-        mudanca.idJanela = 0;
+        mudanca.idJanela = "";
         mudanca.idPAM = "";
         mudanca.idSubTaskPAM = "";
-        mudanca.empresa = [{codigo: "", titulo: ""}];
-        mudanca.ambiente = [{codigo: "", titulo: ""}];
+        mudanca.empresa = [""];
+        mudanca.ambiente = [""];
         mudanca.Result = "";
         return mudanca;
     }    

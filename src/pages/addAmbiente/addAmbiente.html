@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf='!ambiente._id'><span class="colortitle"> Novo ambiente </span></ion-title>
+    <ion-title *ngIf='!ambiente._id'><span class="colortitle">Novo ambiente</span></ion-title>
     <ion-title *ngIf='ambiente._id'><span class="colortitle">Editar ambiente</span></ion-title>
   </ion-navbar>
 </ion-header>
@@ -31,8 +31,8 @@
   </ion-list>
 
   <div align="middle">
-    <button ion-button (click)="saveJanela()">Salvar</button>
-    <button ion-button *ngIf='ambiente._id' (click)="deleteJanela()">Excluir</button>
+    <button ion-button (click)="saveAmbiente()">Salvar</button>
+    <button ion-button *ngIf='ambiente._id' (click)="deleteAmbiente()">Excluir</button>
   </div>
   
 </ion-content>

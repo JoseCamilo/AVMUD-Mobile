@@ -4,6 +4,7 @@ import { Janela } from "../../models/janela.model";
 import { MudancaPage } from "../mudanca/mudanca";
 import { AddJanelaPage } from "../addJanela/addJanela";
 import { StatusPage } from "../status/status";
+import { WsJanelas } from "../../providers/wsJanelas";
 
 
 @Component({
@@ -15,7 +16,7 @@ export class HomePage {
   janelas: Janela[] = [];
 
   
-  constructor(public navCtrl: NavController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public platform: Platform, public webservice: WsJanelas) {
     
   }
 
@@ -37,28 +38,11 @@ export class HomePage {
 
   readJanelas() {
 
-    // this.webservice.getJanelas().subscribe(
-    //   (res) => {
-    //     this.janelas = res;
-    //   }
-    // );
-
-
-    this.janelas = [];
-    let element = new Janela();
-    let element2 = new Janela();
-    let element3 = new Janela();
-    let element4 = new Janela();
-
-    
-    element.title = "Janela 11";
-    element.idPAM = "PAM-900";
-    this.janelas.push(element);
-
-    
-    element2.title = "Janela 33";
-    element2.idPAM = "PAM-552"
-    this.janelas.push(element2);
+    this.webservice.getJanelas().subscribe(
+      (res) => {
+        this.janelas = res;
+      }
+    );
              
   }
 

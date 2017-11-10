@@ -20,13 +20,15 @@ import { AddAmbientePage } from "../pages/addAmbiente/addAmbiente";
 import { AvisoPage } from "../pages/aviso/aviso";
 import { StatusPage } from "../pages/status/status";
 import { SocialSharing } from "@ionic-native/social-sharing";
-import { SQLite } from "@ionic-native/sqlite";
-import { MyDb } from "../providers/MyDb";
 import { ProdutoPage } from "../pages/produto/produto";
 import { AddEmpresaPage } from "../pages/addEmpresa/addEmpresa";
 import { AddProdutoPage } from "../pages/addProduto/addProduto";
 import { EmpresaPage } from "../pages/empresa/empresa";
 import { AddAvisoPage } from "../pages/addAviso/addAviso";
+import { WsProdutos } from "../providers/wsProdutos";
+import { WsEmpresas } from "../providers/wsEmpresas";
+import { WsAmbientes } from "../providers/wsAmbientes";
+import { WsAvisos } from "../providers/wsAvisos";
 
 @NgModule({
   declarations: [
@@ -77,9 +79,11 @@ import { AddAvisoPage } from "../pages/addAviso/addAviso";
     WsJanelas,
     WsMudancas,
     WsTarefas,
+    WsProdutos,
+    WsAmbientes,
+    WsEmpresas,
+    WsAvisos,
     SocialSharing,
-    SQLite,
-    MyDb,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

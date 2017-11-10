@@ -1,12 +1,12 @@
 export class Janela {    
     
        
-    _id: number;
+    _id: string;
     title: string;
     status: string;
-    idProduto: [{codigo: string, titulo: string}];
+    idProduto: [string];
     fase: string;
-    idPAM: string;
+    idPam: string;
     Result: string;
     idAmbiente: string;
     
@@ -14,15 +14,15 @@ export class Janela {
         let janela = new Janela();
         janela.title = "";
         janela.status = "";
-        janela.idProduto = [{codigo: "", titulo: ""}];
+        janela.idProduto = [""];
         janela.fase = "";
-        janela.idPAM = "";
+        janela.idPam = "";
         janela.Result = "Nunca executado";
         janela.idAmbiente = "";
         return janela;
     }
 
-    Janela(id: number, title: string, status: string, idProduto: [{codigo: string, titulo: string}], fase: string, Result: string ): Janela{
+    Janela(id: string, title: string, status: string, idProduto: [string], fase: string, Result: string ): Janela{
         let janela = new Janela();
         janela._id = id;
         janela.title = title;

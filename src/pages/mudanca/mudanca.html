@@ -49,6 +49,12 @@
             <div >Executando</div>
           </button>
         </ion-col>
+        <ion-col *ngIf='mudanca.status === "indisponivel"'>
+          <button ion-button icon-left clear small class="colorerro">
+            <ion-icon name="alert"></ion-icon>
+            <div >Serviço indisponível</div>
+          </button>
+        </ion-col>
       </ion-row>
   </ion-card>
 

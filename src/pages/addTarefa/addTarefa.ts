@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage,  NavController,  NavParams,  AlertController,  ViewController} from 'ionic-angular';
-import { WsJanelas } from '../../providers/wsJanelas';
+import { WsTarefas } from '../../providers/wsTarefas';
 import { Tarefa } from "../../models/tarefa.model";
+import { Mudanca } from "../../models/mudanca.model";
 
 @IonicPage()
 @Component({
@@ -10,65 +11,78 @@ import { Tarefa } from "../../models/tarefa.model";
 })
 export class AddTarefaPage {
 
-  private tarefa: Tarefa = new Tarefa();
+  tarefa: Tarefa = new Tarefa();
+  mudanca: Mudanca = new Mudanca();
 
-  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsJanelas, public alertCtrl: AlertController) {
+  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsTarefas, public alertCtrl: AlertController) {
     if (navParams.get('tarefa')) {
       this.tarefa = navParams.get('tarefa') as Tarefa;
     } else {
       this.tarefa = Tarefa.adatp();
+
+      if (navParams.get('mudanca')) {
+        this.mudanca = navParams.get('mudanca') as Mudanca;
+
+        this.tarefa.idMudanca = this.mudanca._id;
+        this.tarefa.empresa = this.mudanca.empresa;
+        this.tarefa.ambiente = this.mudanca.ambiente;
+
+      } else {
+        this.mudanca = Mudanca.adatp();
+      }
+
     }
   }
 
 
-  // saveJanela(){
+  saveTarefa(){
     
-  //   this.webservice.saveJanela(this.tarefa).subscribe(
-  //     (res) => {
-  //       this.showAlert('Item salvo com sucesso!');
-  //       this.viewCtrl.dismiss();
-  //     },
-  //     (err) => {
-  //       this.showErrorAlert(err);
-  //     }
-  //   );    
-  // }
+    this.webservice.saveTarefa(this.tarefa).subscribe(
+      (res) => {
+        this.showAlert('Item salvo com sucesso!');
+        this.viewCtrl.dismiss();
+      },
+      (err) => {
+        this.showErrorAlert(err);
+      }
+    );    
+  }
   
-  // deleteJanela() {
-  //   this.showConfirm();
-  // }
+  deleteTarefa() {
+    this.showConfirm();
+  }
 
 
-  // showConfirm() {
-  //   var that = this;
-  //   let confirm = this.alertCtrl.create({
-  //     title: 'Exclusão',
-  //     message: 'Tem certeza que deseja excluir?',
-  //     buttons: [
-  //       {
-  //         text: 'Não',
-  //         handler: () => {
+  showConfirm() {
+    var that = this;
+    let confirm = this.alertCtrl.create({
+      title: 'Exclusão',
+      message: 'Tem certeza que deseja excluir?',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => {
            
-  //         }
-  //       },
-  //       {
-  //         text: 'Sim',
-  //         handler: () => {
-  //           that.webservice.deleteJanela(that.janela._id).subscribe(
-  //             (res) => {
-  //               that.showAlert('Excluído com sucesso!');
-  //               this.navCtrl.popToRoot();
-  //             },
-  //             (err) => {
-  //               that.showErrorAlert(err);
-  //             }
-  //           )
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   confirm.present();
-  // }
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            that.webservice.deleteTarefa(that.tarefa._id).subscribe(
+              (res) => {
+                that.showAlert('Excluído com sucesso!');
+                this.navCtrl.pop();
+              },
+              (err) => {
+                that.showErrorAlert(err);
+              }
+            )
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
   showAlert(msg) {
     let alert = this.alertCtrl.create({

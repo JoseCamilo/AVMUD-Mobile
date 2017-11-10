@@ -1,8 +1,6 @@
-import { Janela } from './../../models/janela.model';
 import { Component } from '@angular/core';
 import { IonicPage,  NavController,  NavParams,  AlertController,  ViewController} from 'ionic-angular';
-import { WsJanelas } from '../../providers/wsJanelas';
-import { Ambiente } from "../../models/ambiente.model";
+import { WsProdutos } from '../../providers/wsProdutos';
 import { Produto } from "../../models/produto.model";
 
 @IonicPage()
@@ -14,7 +12,7 @@ export class AddProdutoPage {
 
   private produto: Produto = new Produto();
 
-  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsJanelas, public alertCtrl: AlertController) {
+  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsProdutos, public alertCtrl: AlertController) {
     if (navParams.get('produto')) {
       this.produto = navParams.get('produto') as Produto;
     } else {
@@ -23,54 +21,54 @@ export class AddProdutoPage {
   }
 
 
-  // saveJanela(){
+  saveProduto(){
     
-  //   this.webservice.saveJanela(this.janela).subscribe(
-  //     (res) => {
-  //       this.showAlert('Item salvo com sucesso!');
-  //       this.viewCtrl.dismiss();
-  //     },
-  //     (err) => {
-  //       this.showErrorAlert(err);
-  //     }
-  //   );    
-  // }
+    this.webservice.saveProduto(this.produto).subscribe(
+      (res) => {
+        this.showAlert('Item salvo com sucesso!');
+        this.viewCtrl.dismiss();
+      },
+      (err) => {
+        this.showErrorAlert(err);
+      }
+    );    
+  }
   
-  // deleteJanela() {
-  //   this.showConfirm();
-  // }
+  deleteProduto() {
+    this.showConfirm();
+  }
 
 
-  // showConfirm() {
-  //   var that = this;
-  //   let confirm = this.alertCtrl.create({
-  //     title: 'Exclusão',
-  //     message: 'Tem certeza que deseja excluir?',
-  //     buttons: [
-  //       {
-  //         text: 'Não',
-  //         handler: () => {
+  showConfirm() {
+    var that = this;
+    let confirm = this.alertCtrl.create({
+      title: 'Exclusão',
+      message: 'Tem certeza que deseja excluir?',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => {
            
-  //         }
-  //       },
-  //       {
-  //         text: 'Sim',
-  //         handler: () => {
-  //           that.webservice.deleteJanela(that.janela._id).subscribe(
-  //             (res) => {
-  //               that.showAlert('Excluído com sucesso!');
-  //               this.navCtrl.popToRoot();
-  //             },
-  //             (err) => {
-  //               that.showErrorAlert(err);
-  //             }
-  //           )
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   confirm.present();
-  // }
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            that.webservice.deleteProduto(that.produto._id).subscribe(
+              (res) => {
+                that.showAlert('Excluído com sucesso!');
+                this.navCtrl.pop();
+              },
+              (err) => {
+                that.showErrorAlert(err);
+              }
+            )
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
   showAlert(msg) {
     let alert = this.alertCtrl.create({

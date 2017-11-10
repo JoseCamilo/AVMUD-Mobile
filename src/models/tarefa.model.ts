@@ -1,7 +1,7 @@
 export class Tarefa {
     
     _id: string;
-    idMudanca: number;
+    idMudanca: string;
     type: string;
     path: string;
     field: string;
@@ -21,6 +21,8 @@ export class Tarefa {
     collection: string;
     filial: string;
     Result: [{mensagem: string}];
+    empresa: [string];
+    ambiente: [string];
 
     
     static adatp(): Tarefa {
@@ -42,7 +44,9 @@ export class Tarefa {
         tarefa.status = "";
         tarefa.collection = "";
         tarefa.filial = "";
-        tarefa.Result = [{mensagem: ""}]
+        tarefa.Result = [{mensagem: ""}];
+        tarefa.empresa = [""];
+        tarefa.ambiente = [""];
         return tarefa;
     }    
 }

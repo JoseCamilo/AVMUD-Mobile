@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Headers } from '@angular/http';
 import { Observable } from "rxjs/Observable";
+import { WsMudancas } from "./wsMudancas";
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class WsJanelas {
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public wsMudancas: WsMudancas) {
   }
 
   public getJanelas() : Observable<Janela[]> {
@@ -41,6 +42,16 @@ export class WsJanelas {
   }
 
   public deleteJanela(id: string){
+
+    // Apaga Mudancas desta Janela
+    // this.wsMudancas.getMudancas(id).subscribe(
+    //   (res) => {
+    //     res.forEach(element => {
+    //       this.wsMudancas.deleteMudanca(element._id).subscribe();
+    //     });
+    //   }
+    // );
+
     return this.http.delete(this.url + '/' + id);
   }
 

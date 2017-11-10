@@ -3,6 +3,7 @@ import { Janela } from './../../models/janela.model';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Tarefa } from "../../models/tarefa.model";
 import { WsTarefas } from "../../providers/wsTarefas";
+import { WsMudancas } from "../../providers/wsMudancas";
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Mudanca } from "../../models/mudanca.model";
 
@@ -24,7 +25,7 @@ export class StatusPage {
   private tarefa: Tarefa = new Tarefa();
   private tarefas: Tarefa[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public wsTarefas: WsTarefas,private socialSharing: SocialSharing,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public wsTarefas: WsTarefas, public wsMudancas: WsMudancas, private socialSharing: SocialSharing,public alertCtrl: AlertController) {
     
     if (navParams.get('janela')) {
       this.janela = navParams.get('janela') as Janela;
@@ -54,81 +55,43 @@ export class StatusPage {
      }
   }
 
+
   readTarefas() {
-    // if (this.janela.idJanela){
-    //   this.wsTarefas.getTarefas(this.janela.idJanela).subscribe(
-    //     (res) => {
-    //       this.tarefas = res;
-    //     }
-    //   );
-    // }
-    // if (this.mudanca.idMudanca){
-    //   this.wsTarefas.getTarefas(this.mudanca.idMudanca).subscribe(
-    //     (res) => {
-    //       this.tarefas = res;
-    //     }
-    //   );
-    // }
+    if (this.janela._id){
 
-    this.tarefas = [];
-    
-    let element = new Tarefa();
-    let element2 = new Tarefa();
-    let element3 = new Tarefa();
+      this.wsMudancas.getMudancas(this.janela._id).subscribe(
+        (resM) => {
 
-    element._id = "1";
-    element.type = "campo";
-    element.status = "ok";
-    element.alias = "SA1";
-    element.field = "A1_XSELCT";
-    element.Result = [{mensagem: "Campo físico criado"}];
-    this.tarefas.push(element);
+          resM.forEach(Melement => {
 
-    element2._id = "2";
-    element2.type = "arquivo";
-    element2.status = "ok";
-    element2.path = "/workflow/FT600CRF.HTM";
-    element2.Result = [{mensagem: "Arquivo encontrado no servidor"}];
-    this.tarefas.push(element2);
+            this.wsTarefas.getTarefas(Melement._id).subscribe(
+              (resT) => {
 
-    element3._id = "3";
-    element3.type = "parametro";
-    element3.status = "erro";
-    element3.SX6 = {x6_var:"TI_PARAM",
-                        x6_conteud:"55;RT;9I",
-                        x6_contspa:"55;RT;9I",
-                        x6_conteng:"55;RT;9I"};
-    element3.Result = [{mensagem: "Parametro não existe no ambiente"}];
-    this.tarefas.push(element3);
+                resT.forEach(Telement => {
+                  this.tarefas.push(Telement);
+                });
 
-    let element4 = new Tarefa();
-    let element5 = new Tarefa();
-    let element6 = new Tarefa();
+              }
+            );
 
-    element4._id = "4";
-    element4.type = "campo";
-    element4.status = "erro";
-    element4.alias = "SB1";
-    element4.field = "B1_ATRAVA";
-    element4.Result = [{mensagem: "Campo físico não criado"}];
-    this.tarefas.push(element4);
+          });
 
-    element5._id = "5";
-    element5.type = "arquivo";
-    element5.status = "erro";
-    element5.path = "/system/DocAR/por_trad_capa.dot";
-    element5.Result = [{mensagem: "Arquivo não encontrado no servidor"}];
-    this.tarefas.push(element5);
+        }
+      );
 
-    element6._id = "6";
-    element6.type = "parametro";
-    element6.status = "ok";
-    element6.SX6 = {x6_var:"PS_TUTORA",
-                        x6_conteud:"andre.miller@totvs.com.br",
-                        x6_contspa:"andre.miller@totvs.com.br",
-                        x6_conteng:"andre.miller@totvs.com.br"};
-    element6.Result = [{mensagem: "Parametro confirmado"}];
-    this.tarefas.push(element6);
+    }else if(this.mudanca._id){
+
+      this.wsTarefas.getTarefas(this.mudanca._id).subscribe(
+        (resT) => {
+
+          resT.forEach(Telement => {
+            this.tarefas.push(Telement);
+          });
+
+        }
+      );
+      
+    }
   }
 
   shareJanela(){
