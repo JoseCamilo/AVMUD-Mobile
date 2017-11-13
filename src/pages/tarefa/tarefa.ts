@@ -77,7 +77,15 @@ export class TarefaPage {
   }
 
   startTarefa(tarefa){
-
+    this.webservice.startTarefa(tarefa).subscribe(
+      (res) => {
+        this.readTarefas();
+        this.showAlert('Testes iniciados!');
+      },
+      (err) => {
+        this.showErrorAlert(err);
+      }
+    );
   }
 
 // REFRESHER

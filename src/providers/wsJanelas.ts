@@ -56,7 +56,7 @@ export class WsJanelas {
   }
 
   public startJanela(janela: Janela){
-    return this.http.put(this.url + "/inicia", {idJanela: janela._id});
+    return this.http.put(this.url + "/inicia", {_id: janela._id});
   }
   
 }

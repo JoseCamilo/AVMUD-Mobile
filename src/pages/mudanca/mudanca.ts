@@ -60,15 +60,15 @@ export class MudancaPage {
 
   startMudanca(mudanca){
 
-    // this.webservice.startJanela(janela).subscribe(
-    //   (res) => {
-    //     this.readMudancas();
-    //     this.showAlert('Testes iniciados!');
-    //   },
-    //   (err) => {
-    //     this.showErrorAlert(err);
-    //   }
-    // );
+    this.webservice.startMudanca(mudanca).subscribe(
+      (res) => {
+        this.readMudancas();
+        this.showAlert('Testes iniciados!');
+      },
+      (err) => {
+        this.showErrorAlert(err);
+      }
+    );
   
   }
 

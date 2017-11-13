@@ -56,7 +56,7 @@ export class WsMudancas {
   }
 
   public startMudanca(mudanca: Mudanca){
-    return this.http.put(this.url + "/inicia", {idMudanca: mudanca._id});
+    return this.http.put(this.url + "/inicia", {_id: mudanca._id});
   }
   
 }
