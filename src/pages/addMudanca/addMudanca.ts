@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage,  NavController,  NavParams,  AlertController,  ViewController} from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, ViewController, LoadingController } from 'ionic-angular';
 import { WsMudancas } from '../../providers/wsMudancas';
 import { Mudanca } from "../../models/mudanca.model";
 import { Janela } from "../../models/janela.model";
@@ -8,6 +8,7 @@ import { Ambiente } from "../../models/ambiente.model";
 import { WsEmpresas } from "../../providers/wsEmpresas";
 import { WsAmbientes } from "../../providers/wsAmbientes";
 import { MudancaPage } from "../mudanca/mudanca";
+import { WsJanelas } from "../../providers/wsJanelas";
 
 @IonicPage()
 @Component({
@@ -18,12 +19,13 @@ export class AddMudancaPage {
 
   private mudanca: Mudanca = new Mudanca();
   janela: Janela = new Janela();
+  janelas: Janela[] = [];
   private empresas : Empresa[] = [];
   private ambientes : Ambiente[] = [];
 
   constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, 
   public webservice: WsMudancas, public alertCtrl: AlertController, public wsAmbientes: WsAmbientes, 
-  public wsEmpresas: WsEmpresas) {
+  public wsEmpresas: WsEmpresas, public loadingCtrl: LoadingController, public wsJanelas: WsJanelas) {
     
     if (navParams.get('janela')) {
       this.janela = navParams.get('janela') as Janela;
@@ -149,4 +151,89 @@ export class AddMudancaPage {
     alert.present();
   }
 
+  alteraJanela(){
+    this.confirmAlteraJanela(); 
+  }
+
+  confirmAlteraJanela() {
+    var that = this;
+    let confirm = this.alertCtrl.create({
+      title: 'Alterar Janela',
+      message: 'Tem certeza que deseja alterar a Janela desta Mudança?',
+      buttons: [
+        {
+          text: 'Não',
+          handler: () => {
+           
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+              let loaderJanela = this.loadingCtrl.create({
+                content: "Buscando Janelas..."
+              });
+              loaderJanela.present();
+
+              this.wsJanelas.getJanelas().subscribe(
+                (res) => {
+                  this.janelas = res;
+                  loaderJanela.dismiss();
+                  
+                  //monta alert com janelas
+                  this.doRadioJanelas();
+                },
+                (err) => {
+                  loaderJanela.dismiss();
+                  this.showErrorAlert("Não foi possível buscar Janelas!");
+                }
+              );
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  doRadioJanelas() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Janelas');
+
+    this.janelas.forEach(element => {
+      alert.addInput({
+        type: 'radio',
+        label: element.title,
+        value: element._id,
+        checked: false
+      });
+    });
+
+    alert.addButton('Cancel');
+    alert.addButton({
+      text: 'Ok',
+      handler: (data: string) => {
+        this.mudanca.idJanela = data;
+
+        let loaderJanela = this.loadingCtrl.create({
+          content: "Buscando Janelas..."
+        });
+        loaderJanela.present();
+
+        this.wsJanelas.getJanela(data).subscribe(
+          (res) => {
+            this.janela = res;
+            loaderJanela.dismiss();
+          },
+          (err) => {
+            loaderJanela.dismiss();
+            this.showErrorAlert("Não foi possível buscar Janela!");
+          }
+        );
+      }
+    });
+
+    alert.present();
+  }
 }
+
+

@@ -16,13 +16,13 @@
     
     <ion-item>
       <ion-label floating>Descrição</ion-label>
-      <ion-textarea type="text" [(ngModel)]="mudanca.descricao"></ion-textarea>
-    </ion-item>
+      <ion-textarea autosize [(ngModel)]="mudanca.descricao"></ion-textarea>
+    </ion-item> 
 
     <ion-item>
       <ion-label floating>Cliente</ion-label>
       <ion-input type="text" [(ngModel)]="mudanca.cliente"></ion-input>
-    </ion-item> 
+    </ion-item>
 
     <ion-item>
       <ion-label floating>Responsável</ion-label>
@@ -57,6 +57,17 @@
         <ion-option *ngFor="let empresa of empresas" value="{{empresa._id}}" >{{empresa.title}}</ion-option>
       </ion-select>
     </ion-item>
+
+    <!--<ion-item-divider class='item-divider'>
+      Janela: {{janela.title}}
+      <button ion-button icon-only (click)="alteraJanela()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-item-divider>-->
+
+    <button ion-item class='item-divider' (click)="alteraJanela()">
+      Janela: {{janela.title}}
+    </button>
       
   </ion-list>
 

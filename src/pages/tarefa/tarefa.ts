@@ -2,12 +2,14 @@ import { Tarefa } from './../../models/tarefa.model';
 import { Component } from '@angular/core';
 import { WsTarefas } from '../../providers/wsTarefas';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
-import { ToastController, LoadingController } from 'ionic-angular';
+import { ToastController, LoadingController, ModalController } from 'ionic-angular';
 import { Mudanca } from "../../models/mudanca.model";
 import { AddTarefaPage } from "../addTarefa/addTarefa";
 import { StatusPage } from "../status/status";
 import { AddMudancaPage } from "../addMudanca/addMudanca";
 import { Janela } from "../../models/janela.model";
+import { AddJiraPage } from "../addJira/addJira";
+import { WsJira } from "../../providers/wsJira";
 
 
 @Component({
@@ -20,7 +22,8 @@ export class TarefaPage {
   mudanca: Mudanca = new Mudanca();
   janela: Janela = new Janela();
 
-  constructor(public webservice: WsTarefas, private toastCtrl: ToastController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, public viewCtrl: ViewController, public loadingCtrl: LoadingController) {
+  constructor(public webservice: WsTarefas, private toastCtrl: ToastController, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, 
+              public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public wsJira: WsJira) {
     if (navParams.get('mudanca')) {
       this.mudanca = navParams.get('mudanca') as Mudanca;
     } else {
@@ -121,14 +124,20 @@ export class TarefaPage {
 
   //JIRA
   jiraMudanca(){
-    this.showConfirmJira();
+
+    if(this.mudanca.idSubTaskPAM){
+      this.showConfirmtarefas();
+    }else{
+      let modal = this.modalCtrl.create(AddJiraPage, {mudanca: this.mudanca});
+      modal.present();
+    }
   }
 
-  showConfirmJira() {
+  showConfirmtarefas() {
     var that = this;
     let confirm = this.alertCtrl.create({
       title: 'Jira',
-      message: 'Enviar a Mudança '+ this.mudanca.title +' para o Jira em '+this.mudanca.idPAM+'?' ,
+      message: 'Deseja enviar as tarefas para a PAM: ' + this.mudanca.idSubTaskPAM + '?',
       buttons: [
         {
           text: 'Não',
@@ -139,9 +148,20 @@ export class TarefaPage {
         {
           text: 'Sim',
           handler: () => {
-            
-            this.presentLoading();
-            
+            let loaderJira = this.loadingCtrl.create({
+              content: "Enviando a Tarefas para o Jira..."
+            });
+            loaderJira.present();
+
+            that.wsJira.anexarItens(that.mudanca).subscribe(
+              (res) => {
+                loaderJira.dismiss();
+                that.showAlert('Tarefas Enviadas!');
+              },
+              (err) => {
+                that.showErrorAlert(err);
+              }
+            )
           }
         }
       ]
@@ -149,17 +169,17 @@ export class TarefaPage {
     confirm.present();
   }
 
-  presentLoading() {
-    let loader = this.loadingCtrl.create({
-      content: "Criando Sub-Task no Jira..."
-    });
-    loader.present();
+  // presentLoading() {
+  //   let loader = this.loadingCtrl.create({
+  //     content: "Criando Sub-Task no Jira..."
+  //   });
+  //   loader.present();
 
-    setTimeout(() => {
-      loader.dismiss();
-      this.showAlert('PAM-803 criada para a Mudança: '+this.mudanca.title);
-    }, 10000);
-  }
+  //   setTimeout(() => {
+  //     loader.dismiss();
+  //     this.showAlert('PAM-803 criada para a Mudança: '+this.mudanca.title);
+  //   }, 10000);
+  // }
   //-- FIM JIRA
 
 }

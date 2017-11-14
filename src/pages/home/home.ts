@@ -14,12 +14,12 @@ import { WsJanelas } from "../../providers/wsJanelas";
 export class HomePage {
   
   janelas: Janela[] = [];
-
   
   constructor(public navCtrl: NavController, public platform: Platform, public webservice: WsJanelas, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     
   }
 
+  
 
   ionViewDidEnter() {
     this.readJanelas();

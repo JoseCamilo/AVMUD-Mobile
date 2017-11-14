@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Criar SubTask Jira</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>   
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Tipo da Tarefa</ion-label>
+      <ion-select [(ngModel)]="issueType" cancelText="Cancelar" okText="Salvar">
+        <ion-option value="Melhoria (subtarefa)">Melhoria (subtarefa)</ion-option>
+        <ion-option value="Manutenção (subtarefa)">Manutenção (subtarefa)</ion-option>
+        <ion-option value="Projeto (sub-tarefa)">Projeto (sub-tarefa)</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Scrum Master</ion-label>
+      <ion-select [(ngModel)]="scrumMaster" cancelText="Cancelar" okText="Salvar">
+        <ion-option *ngFor="let userJira of usersJira" value="{{userJira.user}}">{{userJira.name}}</ion-option>
+      </ion-select>
+    </ion-item>    
+
+  </ion-list>
+
+  <div align="middle">
+    <button ion-button (click)="createSubTask()">Enviar</button>
+    <button ion-button (click)="dismiss()">Cancelar</button>
+  </div>
+  
+</ion-content>

@@ -10,7 +10,7 @@ import { WsMudancas } from "./wsMudancas";
 @Injectable()
 export class WsJanelas {
 
-  private url:string = 'http://172.16.93.227:3000/api/janela';
+  private url:string = 'http://172.16.93.227:3000/api/janela/';
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
 
@@ -29,6 +29,17 @@ export class WsJanelas {
             }
           );
         return newJanelas;
+      });
+  }
+
+  public getJanela(id: string) : Observable<Janela> {
+    return this.http.get(this.url + id)
+      .map(res => res.json())
+      .map(
+        (janela) => {
+          let newJanela: Janela = new Janela();
+          newJanela = janela;
+        return newJanela;
       });
   }
 
@@ -52,7 +63,7 @@ export class WsJanelas {
     //   }
     // );
 
-    return this.http.delete(this.url + '/' + id);
+    return this.http.delete(this.url + id);
   }
 
   public startJanela(janela: Janela){

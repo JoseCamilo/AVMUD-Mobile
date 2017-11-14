@@ -17,7 +17,18 @@ export class Mudanca {
     static adatp(): Mudanca {
         let mudanca = new Mudanca();
         mudanca.title = "";
-        mudanca.descricao = "Incidente: \nSolução: ";
+        mudanca.descricao = "Incidente: \n" + 
+                            "Solução: \n\n" + 
+                            "Inclusão ou alteração de novo CH do Padrão:\n" +  
+                            "(  ) SIM  /  ( x ) Não \n\n" +
+                            "Evidência de teste: \n\n" + 
+                            "Aplicar no MI: \n" +
+                            "( x ) Aplicar (  ) Não Replicar \n\n" +
+                            "Impacto no MI: \n" +
+                            "(  )SIM ( x )NÃO \n\n" +
+                            "Testes no MI: \n" +
+                            "( x )SIM (  )NÃO";
+                            
         mudanca.status = "";
         mudanca.responsavel = "";
         mudanca.contato = "";

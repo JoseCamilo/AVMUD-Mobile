@@ -19,13 +19,9 @@
 
   <ion-card *ngFor="let janela of janelas">
     <ion-card-header primary (click)="itemTapped($event, janela)">
-      
-      <ion-icon name="book"></ion-icon>
-      
-      {{janela.title}}
-    
+      {{janela.title}}    
     </ion-card-header>
-    <!-- <ion-card-content class="colorparag" (click)="itemTapped($event, janela)">{{janela.Result[0].mensagem}}</ion-card-content> -->
+
     <ion-card-content class="colorparag" (click)="itemTapped($event, janela)">
       {{janela.fase}}
       <p>{{janela.Result}}</p>

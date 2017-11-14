@@ -30,6 +30,8 @@ import { WsEmpresas } from "../providers/wsEmpresas";
 import { WsAmbientes } from "../providers/wsAmbientes";
 import { WsAvisos } from "../providers/wsAvisos";
 import { WsJira } from "../providers/wsJira";
+import { AddJiraPage } from "../pages/addJira/addJira";
+import { Autosize } from "../components/autosize/autosize";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { WsJira } from "../providers/wsJira";
     AddProdutoPage,
     EmpresaPage,
     AddEmpresaPage,
-    AddAvisoPage
+    AddAvisoPage,
+    AddJiraPage,
+    Autosize
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,8 @@ import { WsJira } from "../providers/wsJira";
     AddProdutoPage,
     EmpresaPage,
     AddEmpresaPage,
-    AddAvisoPage
+    AddAvisoPage,
+    AddJiraPage
   ],
   providers: [
     StatusBar,

@@ -17,7 +17,7 @@ export class AddJanelaPage {
 
   janela: Janela = new Janela();
   produtos: Produto[] = [];
-  tasksJira: TaskJira[] = [];
+  tasksJira: TaskJira[] = []; 
 
 
   constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsJanelas, public alertCtrl: AlertController, public wsProdutos: WsProdutos, public wsJira: WsJira, public loadingCtrl: LoadingController) {
