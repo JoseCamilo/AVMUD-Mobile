@@ -1,10 +1,12 @@
 import { Janela } from './../../models/janela.model';
 import { Component } from '@angular/core';
-import { IonicPage,  NavController,  NavParams,  AlertController,  ViewController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ViewController, LoadingController } from 'ionic-angular';
 import { WsJanelas } from '../../providers/wsJanelas';
 import { Ambiente } from "../../models/ambiente.model";
 import { WsProdutos } from "../../providers/wsProdutos";
 import { Produto } from "../../models/produto.model";
+import { WsJira } from "../../providers/wsJira";
+import { TaskJira } from "../../models/taskJira.model";
 
 @IonicPage()
 @Component({
@@ -15,9 +17,10 @@ export class AddJanelaPage {
 
   janela: Janela = new Janela();
   produtos: Produto[] = [];
+  tasksJira: TaskJira[] = [];
 
 
-  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsJanelas, public alertCtrl: AlertController, public wsProdutos: WsProdutos) {
+  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsJanelas, public alertCtrl: AlertController, public wsProdutos: WsProdutos, public wsJira: WsJira, public loadingCtrl: LoadingController) {
     if (navParams.get('janela')) {
       this.janela = navParams.get('janela') as Janela;
     } else {
@@ -28,17 +31,38 @@ export class AddJanelaPage {
 
   ionViewDidEnter() {
     this.readProdutos();
+    this.readTasksJira();
   }
 
   readProdutos() {
 
+    let loaderProduto = this.loadingCtrl.create({
+      content: "Buscando Produtos..."
+    });
+    loaderProduto.present();
+
     this.wsProdutos.getProdutos().subscribe(
       (res) => {
-        console.log(res);
         this.produtos = res;
+        loaderProduto.dismiss();
       }
     );
 
+  }
+
+  readTasksJira(){
+
+    let loaderJira = this.loadingCtrl.create({
+      content: "Buscando Tarefas do Jira..."
+    });
+    loaderJira.present();
+
+    this.wsJira.getTasks().subscribe(
+      (res) => {
+        this.tasksJira = res;
+        loaderJira.dismiss();
+      }
+    );
   }
 
   saveJanela(){
@@ -101,7 +125,7 @@ export class AddJanelaPage {
   showErrorAlert(msg) {
     let alert = this.alertCtrl.create({
       title: 'Erro',
-      subTitle: 'Erro: ' + msg,
+      subTitle: msg,
       buttons: ['OK']
     });
     alert.present();

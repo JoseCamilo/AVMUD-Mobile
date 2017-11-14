@@ -83,7 +83,7 @@ export class AddAvisoPage {
   showErrorAlert(msg) {
     let alert = this.alertCtrl.create({
       title: 'Erro',
-      subTitle: 'Erro: ' + msg,
+      subTitle: msg,
       buttons: ['OK']
     });
     alert.present();

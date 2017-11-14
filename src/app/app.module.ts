@@ -29,6 +29,7 @@ import { WsProdutos } from "../providers/wsProdutos";
 import { WsEmpresas } from "../providers/wsEmpresas";
 import { WsAmbientes } from "../providers/wsAmbientes";
 import { WsAvisos } from "../providers/wsAvisos";
+import { WsJira } from "../providers/wsJira";
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { WsAvisos } from "../providers/wsAvisos";
     WsAmbientes,
     WsEmpresas,
     WsAvisos,
+    WsJira,
     SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

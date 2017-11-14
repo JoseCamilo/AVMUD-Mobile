@@ -93,7 +93,7 @@ export class AddEmpresaPage {
   showErrorAlert(msg) {
     let alert = this.alertCtrl.create({
       title: 'Erro',
-      subTitle: 'Erro: ' + msg,
+      subTitle: msg,
       buttons: ['OK']
     });
     alert.present();

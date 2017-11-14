@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, AlertController } from 'ionic-angular';
+import { NavController, Platform, AlertController, LoadingController } from 'ionic-angular';
 import { Janela } from "../../models/janela.model";
 import { MudancaPage } from "../mudanca/mudanca";
 import { AddJanelaPage } from "../addJanela/addJanela";
@@ -16,7 +16,7 @@ export class HomePage {
   janelas: Janela[] = [];
 
   
-  constructor(public navCtrl: NavController, public platform: Platform, public webservice: WsJanelas, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public platform: Platform, public webservice: WsJanelas, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     
   }
 
@@ -38,9 +38,19 @@ export class HomePage {
 
   readJanelas() {
 
+    let loaderJanela = this.loadingCtrl.create({
+      content: "Buscando Janelas..."
+    });
+    loaderJanela.present();
+
     this.webservice.getJanelas().subscribe(
       (res) => {
         this.janelas = res;
+        loaderJanela.dismiss();
+      },
+      (err) => {
+        loaderJanela.dismiss();
+        this.showErrorAlert("Não foi possível buscar Janelas!");
       }
     );
              
@@ -87,7 +97,7 @@ export class HomePage {
   showErrorAlert(msg) {
     let alert = this.alertCtrl.create({
       title: 'Erro',
-      subTitle: 'Erro: ' + msg,
+      subTitle: msg,
       buttons: ['OK']
     });
     alert.present();

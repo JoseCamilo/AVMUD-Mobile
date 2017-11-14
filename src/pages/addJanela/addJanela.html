@@ -32,7 +32,9 @@
 
     <ion-item>
       <ion-label floating>PAM Principal</ion-label>
-      <ion-input type="text" [(ngModel)]="janela.idPam"></ion-input>
+      <ion-select [(ngModel)]="janela.idPam" cancelText="Cancelar" okText="Salvar">
+        <ion-option *ngFor="let taskJira of tasksJira" value="{{taskJira.id}}" >{{taskJira.title}}</ion-option>
+      </ion-select>
     </ion-item>
 
   </ion-list>
