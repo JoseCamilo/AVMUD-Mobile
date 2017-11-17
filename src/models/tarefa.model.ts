@@ -23,6 +23,7 @@ export class Tarefa {
     Result: [{mensagem: string}];
     empresa: [string];
     ambiente: [string];
+    arquivo: [string];
 
     
     static adatp(): Tarefa {
@@ -47,16 +48,17 @@ export class Tarefa {
         tarefa.Result = [{mensagem: ""}];
         tarefa.empresa = [""];
         tarefa.ambiente = [""];
+        tarefa.arquivo = [""];
         return tarefa;
     }    
 }
 
-export class SX6 {
-    x6_var: string;
-    x6_conteud:string;
-    x6_contspa: string;
-    x6_conteng: string;
-}
+// export class SX6 {
+//     x6_var: string;
+//     x6_conteud:string;
+//     x6_contspa: string;
+//     x6_conteng: string;
+// }
         
 
         

@@ -35,8 +35,10 @@
     </ion-item>
     
     <ion-item>
-      <ion-label floating>Codigo PAM</ion-label>
-      <ion-input type="text" [(ngModel)]="mudanca.idPAM"></ion-input>
+      <ion-label floating>PAM Principal</ion-label>
+      <ion-select [(ngModel)]="mudanca.idPAM" cancelText="Cancelar" okText="Salvar">
+        <ion-option *ngFor="let taskJira of tasksJira" value="{{taskJira.id}}">{{taskJira.title}}</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
@@ -66,7 +68,7 @@
     </ion-item-divider>-->
 
     <button ion-item class='item-divider' (click)="alteraJanela()">
-      Janela: {{janela.title}}
+      Alterar Janela: {{janela.title}}
     </button>
       
   </ion-list>

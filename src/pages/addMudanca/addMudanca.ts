@@ -9,6 +9,8 @@ import { WsEmpresas } from "../../providers/wsEmpresas";
 import { WsAmbientes } from "../../providers/wsAmbientes";
 import { MudancaPage } from "../mudanca/mudanca";
 import { WsJanelas } from "../../providers/wsJanelas";
+import { TaskJira } from "../../models/taskJira.model";
+import { WsJira } from "../../providers/wsJira";
 
 @IonicPage()
 @Component({
@@ -22,10 +24,11 @@ export class AddMudancaPage {
   janelas: Janela[] = [];
   private empresas : Empresa[] = [];
   private ambientes : Ambiente[] = [];
+  tasksJira: TaskJira[] = [];
 
   constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, 
   public webservice: WsMudancas, public alertCtrl: AlertController, public wsAmbientes: WsAmbientes, 
-  public wsEmpresas: WsEmpresas, public loadingCtrl: LoadingController, public wsJanelas: WsJanelas) {
+  public wsEmpresas: WsEmpresas, public loadingCtrl: LoadingController, public wsJanelas: WsJanelas, public wsJira: WsJira) {
     
     if (navParams.get('janela')) {
       this.janela = navParams.get('janela') as Janela;
@@ -46,6 +49,7 @@ export class AddMudancaPage {
   ionViewDidEnter() {
     this.readEmpresas();
     this.readAmbientes();
+    this.readTasksJira();
   }
 
   readEmpresas() {
@@ -81,6 +85,21 @@ export class AddMudancaPage {
       );
     });
 
+  }
+
+  readTasksJira(){
+
+    let loaderJira = this.loadingCtrl.create({
+      content: "Buscando Tarefas do Jira..."
+    });
+    loaderJira.present();
+
+    this.wsJira.getTasks().subscribe(
+      (res) => {
+        this.tasksJira = res;
+        loaderJira.dismiss();
+      }
+    );
   }
 
 
