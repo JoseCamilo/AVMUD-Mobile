@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>    
+    <ion-title>
+      AvMud TI TOTVS
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <div text-center>
+    <ion-img width="120" height="120" src="assets/imgs/logo.png" style="background: transparent !important"></ion-img>
+  </div>
+
+  <div text-center>
+    <h1 style="color: #0c9abe">Acelerador de Verificação de Mudança</h1>
+  </div>
+  
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Senha</ion-label>
+      <ion-input *ngIf='!mostrapss' type="password" [(ngModel)]="senha"></ion-input>
+      <ion-input *ngIf='mostrapss' type="text" [(ngModel)]="senha"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf='!falhou'>
+      <ion-icon item-start name="alert" color="danger"></ion-icon>
+      <ion-label color="danger">Email ou Senha inválida!</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Mostrar senha</ion-label>
+      <ion-checkbox [(ngModel)]="mostrapss"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button full (click)="login()">Entrar</button>
+
+</ion-content>

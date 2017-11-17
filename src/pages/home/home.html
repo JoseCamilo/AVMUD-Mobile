@@ -29,31 +29,31 @@
 
     <ion-row>
         <ion-col>
-          <button ion-button icon-left clear small class="coloraguarde" (click)="startJanela(janela)">
+          <button ion-button icon-left clear small color="primary" (click)="startJanela(janela)">
             <ion-icon name="arrow-dropright"></ion-icon>
             <div>Iniciar</div>
           </button>
         </ion-col>
         <ion-col *ngIf='janela.status === "erro"'>
-          <button ion-button icon-left clear small class="colorerro" (click)="resultJanela(janela)">
+          <button ion-button icon-left clear small color="danger" (click)="resultJanela(janela)">
             <ion-icon name="close"></ion-icon>
             <div>Erro</div>
           </button>
         </ion-col>
         <ion-col *ngIf='janela.status === "ok"'>
-          <button ion-button icon-left clear small class="colorok" (click)="resultJanela(janela)">
+          <button ion-button icon-left clear small color="favorite" (click)="resultJanela(janela)">
             <ion-icon name="checkmark"></ion-icon>
             <div >Ok</div>
           </button>
         </ion-col>
         <ion-col *ngIf='janela.status === "executando"'>
-          <button ion-button icon-left clear small class="coloraguarde">
+          <button ion-button icon-left clear small color="primary">
             <ion-icon name="refresh"></ion-icon>
             <div >Executando</div>
           </button>
         </ion-col>
         <ion-col *ngIf='janela.status === "indisponivel"'>
-          <button ion-button icon-left clear small class="colorerro">
+          <button ion-button icon-left clear small color="danger">
             <ion-icon name="alert"></ion-icon>
             <div >Serviço indisponível</div>
           </button>

@@ -26,31 +26,31 @@
 
     <ion-row>
         <ion-col>
-          <button ion-button icon-left clear small class="coloraguarde" (click)="startMudanca(mudanca)">
+          <button ion-button icon-left clear small color="primary" (click)="startMudanca(mudanca)">
             <ion-icon name="arrow-dropright"></ion-icon>
             <div>Iniciar</div>
           </button>
         </ion-col>
         <ion-col *ngIf='mudanca.status === "erro"'>
-          <button ion-button icon-left clear small class="colorerro" (click)="resultMudanca(mudanca)">
+          <button ion-button icon-left clear small color="danger" (click)="resultMudanca(mudanca)">
             <ion-icon name="close"></ion-icon>
             <div>Erro</div>
           </button>
         </ion-col>
         <ion-col *ngIf='mudanca.status === "ok"'>
-          <button ion-button icon-left clear small class="colorok" (click)="resultMudanca(mudanca)">
+          <button ion-button icon-left clear small color="favorite" (click)="resultMudanca(mudanca)">
             <ion-icon name="checkmark"></ion-icon>
             <div >Ok</div>
           </button>
         </ion-col>
         <ion-col *ngIf='mudanca.status === "executando"'>
-          <button ion-button icon-left clear small class="coloraguarde">
+          <button ion-button icon-left clear small color="primary">
             <ion-icon name="refresh"></ion-icon>
             <div >Executando</div>
           </button>
         </ion-col>
         <ion-col *ngIf='mudanca.status === "indisponivel"'>
-          <button ion-button icon-left clear small class="colorerro">
+          <button ion-button icon-left clear small color="danger">
             <ion-icon name="alert"></ion-icon>
             <div >Serviço indisponível</div>
           </button>

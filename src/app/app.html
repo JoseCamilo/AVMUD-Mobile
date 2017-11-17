@@ -1,20 +1,43 @@
 <ion-menu [content]="mycontent">
-    <ion-header>
-        <ion-toolbar>
-            <ion-title>Menu</ion-title>
-        </ion-toolbar>
-    </ion-header>
+  <ion-header>
+      <ion-toolbar>
+          <ion-title>Menu</ion-title>
+      </ion-toolbar>
+  </ion-header>
+  
   <ion-content>
-    <ion-list>
-      <button ion-item menuClose (click)="openPage(homePage)">
-        Janelas
-      </button>
-      <button ion-item menuClose (click)="openPage(produtoPage)">
-        Produtos
-      </button>
-      <button ion-item menuClose (click)="openPage(avisoPage)">
-        Avisos
-      </button>
+    
+ 
+    <ion-list no-lines>
+      <ion-item-group no-lines>
+        <ion-item>
+
+          <ion-avatar item-start>
+            <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          </ion-avatar>
+
+          <h3>José Fernando Camilo da Silva</h3>
+          <p>jose.camilo@totvs.com.br</p>
+          
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+    <ion-list inset>
+      <ion-item-group>
+        <button ion-item menuClose (click)="openPage(homePage)">
+          Janelas
+        </button>
+        <button ion-item menuClose (click)="openPage(produtoPage)">
+          Produtos
+        </button>
+        <button ion-item menuClose (click)="openPage(avisoPage)">
+          Avisos
+        </button>
+        <button ion-item menuClose (click)="logout()">
+          Sair
+        </button>
+      </ion-item-group>
+        
     </ion-list>
   </ion-content>
 </ion-menu>

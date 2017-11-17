@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { File } from '@ionic-native/file';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,6 +33,7 @@ import { WsAvisos } from "../providers/wsAvisos";
 import { WsJira } from "../providers/wsJira";
 import { AddJiraPage } from "../pages/addJira/addJira";
 import { Autosize } from "../components/autosize/autosize";
+import { LoginPage } from "../pages/login/login";
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { Autosize } from "../components/autosize/autosize";
     AddEmpresaPage,
     AddAvisoPage,
     AddJiraPage,
-    Autosize
+    Autosize,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { Autosize } from "../components/autosize/autosize";
     EmpresaPage,
     AddEmpresaPage,
     AddAvisoPage,
-    AddJiraPage
+    AddJiraPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
@@ -90,6 +94,7 @@ import { Autosize } from "../components/autosize/autosize";
     WsEmpresas,
     WsAvisos,
     WsJira,
+    File,
     SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
