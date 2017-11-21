@@ -8,8 +8,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WsUtil {
 
-  private url:string = 'http://172.16.93.227:4000/api/';
-  private url3000:string = 'http://172.16.93.227:3000/api/';
+  private url:string = 'http://172.16.93.227:3000/api/';
   private urlFluig:string = 'https://wscorp.totvs.com.br/authusrfluig/';
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
@@ -27,7 +26,7 @@ export class WsUtil {
   }
 
   public buscaPastas(endereco: string){
-      return this.http.put(this.url3000 + "pastas", {"path": endereco})
+      return this.http.put(this.url + "pastas", {"path": endereco})
       .map((res) => {
         let retorno = res.json();
         return retorno;

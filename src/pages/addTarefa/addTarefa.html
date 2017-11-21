@@ -69,7 +69,7 @@
     </ion-item>
     <ion-item *ngIf='tarefa.type === "changeset"'>
       <ion-label floating>Collection</ion-label>
-      <ion-select [(ngModel)]="tarefa.collection" cancelText="Cancelar" okText="Salvar">
+      <ion-select [(ngModel)]="tarefa.colection" cancelText="Cancelar" okText="Salvar">
         <ion-option value="TDITOTVS12">TDITOTVS12</ion-option>
         <ion-option value="CD-SP">CD-SP Padrão</ion-option>
       </ion-select>
@@ -82,7 +82,7 @@
     </ion-item>
     <ion-item *ngIf='tarefa.type === "fonte"'>
       <ion-label floating>Collection</ion-label>
-      <ion-select [(ngModel)]="tarefa.collection" cancelText="Cancelar" okText="Salvar">
+      <ion-select [(ngModel)]="tarefa.colection" cancelText="Cancelar" okText="Salvar">
         <ion-option value="TDITOTVS12">TDITOTVS12</ion-option>
         <ion-option value="CD-SP">CD-SP Padrão</ion-option>
       </ion-select>

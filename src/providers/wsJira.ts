@@ -12,8 +12,8 @@ import { WsMudancas } from "./wsMudancas";
 @Injectable()
 export class WsJira {
 
-  private url:string = 'http://172.16.93.227:4000/api/jira/';
-  private urlAnx:string = "http://172.16.93.227:4000/api/mudanca/jira/";
+  private url:string = 'http://172.16.93.227:3000/api/jira/';
+  private urlAnx:string = "http://172.16.93.227:3000/api/mudanca/jira/";
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
   

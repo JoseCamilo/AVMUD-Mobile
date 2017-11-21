@@ -18,7 +18,7 @@ export class Tarefa {
     fonte: string;
     consulta: string;
     status: string;
-    collection: string;
+    colection: string;
     filial: string;
     Result: [{mensagem: string}];
     empresa: [string];
@@ -43,7 +43,7 @@ export class Tarefa {
         tarefa.fonte = "";
         tarefa.consulta = "";
         tarefa.status = "";
-        tarefa.collection = "";
+        tarefa.colection = "";
         tarefa.filial = "";
         tarefa.Result = [{mensagem: ""}];
         tarefa.empresa = [""];
@@ -51,14 +51,4 @@ export class Tarefa {
         tarefa.arquivo = [""];
         return tarefa;
     }    
-}
-
-// export class SX6 {
-//     x6_var: string;
-//     x6_conteud:string;
-//     x6_contspa: string;
-//     x6_conteng: string;
-// }
-        
-
-        
+}    

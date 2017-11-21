@@ -10,7 +10,7 @@ import { WsTarefas } from "./wsTarefas";
 @Injectable()
 export class WsMudancas {
 
-  private url:string = 'http://172.16.93.227:4000/api/mudanca/';
+  private url:string = 'http://172.16.93.227:3000/api/mudanca/';
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
   

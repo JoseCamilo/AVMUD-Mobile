@@ -40,14 +40,14 @@
       <ion-icon *ngIf='tarefa.status === "erro"' color="danger" name="close"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "ok"' color="favorite" name="checkmark"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "indisponivel"' color="danger" name="alert"></ion-icon>
-      {{tarefa.type}} {{tarefa.changeset}} {{tarefa.collection}}
+      {{tarefa.type}} {{tarefa.changeset}} {{tarefa.colection}}
     </ion-item-divider>
 
     <ion-item-divider class='item-divider' *ngIf='tarefa.type === "fonte"'>
       <ion-icon *ngIf='tarefa.status === "erro"' color="danger" name="close"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "ok"' color="favorite" name="checkmark"></ion-icon>
       <ion-icon *ngIf='tarefa.status === "indisponivel"' color="danger" name="alert"></ion-icon>
-      {{tarefa.type}} {{tarefa.fonte}} {{tarefa.changeset}} {{tarefa.collection}}
+      {{tarefa.type}} {{tarefa.fonte}} {{tarefa.changeset}} {{tarefa.colection}}
     </ion-item-divider>
 
     <ion-item-divider class='item-divider' *ngIf='tarefa.type === "parametro"'>

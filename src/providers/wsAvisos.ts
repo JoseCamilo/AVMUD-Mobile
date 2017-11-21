@@ -9,7 +9,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WsAvisos {
 
-  private url:string = 'http://172.16.93.227:4000/api/aviso/';
+  private url:string = 'http://172.16.93.227:3000/api/aviso/';
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
