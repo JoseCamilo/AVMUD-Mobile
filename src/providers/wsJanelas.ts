@@ -10,7 +10,7 @@ import { WsMudancas } from "./wsMudancas";
 @Injectable()
 export class WsJanelas {
 
-  private url:string = 'http://172.16.93.227:3000/api/janela/';
+  private url:string = 'http://172.16.93.227:4000/api/janela/';
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
 
@@ -67,7 +67,7 @@ export class WsJanelas {
   }
 
   public startJanela(janela: Janela){
-    return this.http.put(this.url + "/inicia", {_id: janela._id});
+    return this.http.put(this.url + "inicia", {_id: janela._id});
   }
   
 }

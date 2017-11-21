@@ -9,7 +9,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WsTarefas {
 
-  private url:string = 'http://172.16.93.227:3000/api/tarefa';
+  private url:string = 'http://172.16.93.227:4000/api/tarefa/';
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
@@ -18,7 +18,7 @@ export class WsTarefas {
   }
 
   public getTarefas(idMudanca: string) : Observable<Tarefa[]> {
-    return this.http.get(this.url + '/' + idMudanca)
+    return this.http.get(this.url + idMudanca)
       .map(res => res.json())
       .map(
         (tarefa) => {
@@ -41,11 +41,11 @@ export class WsTarefas {
   }
 
   public deleteTarefa(id: string){
-    return this.http.delete(this.url + '/' + id);
+    return this.http.delete(this.url + id);
   }
 
   public startTarefa(tarefa: Tarefa){
-    return this.http.put(this.url + "/inicia", {_id: tarefa._id});
+    return this.http.put(this.url + "inicia", {_id: tarefa._id});
   }
   
 }

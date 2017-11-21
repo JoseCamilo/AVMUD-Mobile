@@ -27,10 +27,11 @@
     <ion-item *ngIf='tarefa.type === "arquivo"'>
       <ion-label floating>Endereço do Arquivo</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.path"></ion-input>
+      <button ion-button clear color="dark" type="button" item-right (click)="loadPastas()"><ion-icon name="search"></ion-icon></button>
     </ion-item>
     <ion-item *ngIf='tarefa.type === "arquivo"'>
       <ion-label floating>Arquivos</ion-label>
-      <ion-select [(ngModel)]="tarefa.arquivo" cancelText="Cancelar" okText="Salvar">
+      <ion-select [(ngModel)]="tarefa.arquivo" multiple="true" cancelText="Cancelar" okText="Salvar">
         <ion-option *ngFor="let arquivo of arquivos" value="{{arquivo.title}}">{{arquivo.title}}</ion-option>
       </ion-select>
     </ion-item>

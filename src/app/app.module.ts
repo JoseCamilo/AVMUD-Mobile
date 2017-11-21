@@ -34,6 +34,8 @@ import { WsJira } from "../providers/wsJira";
 import { AddJiraPage } from "../pages/addJira/addJira";
 import { Autosize } from "../components/autosize/autosize";
 import { LoginPage } from "../pages/login/login";
+import { WsUtil } from "../providers/wsUtil";
+import { ExplorerPage } from "../pages/explorer/explorer";
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { LoginPage } from "../pages/login/login";
     AddAvisoPage,
     AddJiraPage,
     Autosize,
-    LoginPage
+    LoginPage,
+    ExplorerPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ import { LoginPage } from "../pages/login/login";
     AddEmpresaPage,
     AddAvisoPage,
     AddJiraPage,
-    LoginPage
+    LoginPage,
+    ExplorerPage
   ],
   providers: [
     StatusBar,
@@ -95,6 +99,7 @@ import { LoginPage } from "../pages/login/login";
     WsAvisos,
     WsJira,
     File,
+    WsUtil,
     SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

@@ -29,7 +29,7 @@
       <ion-input *ngIf='mostrapss' type="text" [(ngModel)]="senha"></ion-input>
     </ion-item>
 
-    <ion-item *ngIf='!falhou'>
+    <ion-item *ngIf='falhou'>
       <ion-icon item-start name="alert" color="danger"></ion-icon>
       <ion-label color="danger">Email ou Senha inválida!</ion-label>
     </ion-item>
@@ -37,6 +37,11 @@
     <ion-item>
       <ion-label>Mostrar senha</ion-label>
       <ion-checkbox [(ngModel)]="mostrapss"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Salvar Acesso</ion-label>
+      <ion-checkbox [(ngModel)]="salvar"></ion-checkbox>
     </ion-item>
 
   </ion-list>

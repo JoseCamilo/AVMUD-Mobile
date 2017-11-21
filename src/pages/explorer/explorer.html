@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="backPasta()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{explorerTitle}}</ion-title>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Ambiente de Busca</ion-label>
+      <ion-select [(ngModel)]="ambienteSelect" cancelText="Cancelar" okText="Salvar" (ionChange)="onChange($event)">
+        <ion-option *ngFor="let ambiente of ambientes" value="{{ambiente._id}}">{{ambiente.title}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of pastas" (click)="itemTapped(item)">
+      {{ item }}
+    </button>
+  </ion-list>
+
+
+  <ion-fab right bottom>
+    <button ion-fab mini class='item-divider' *ngIf="explorerTitle" (click)="dismiss()"><ion-icon name="checkmark"></ion-icon></button>
+  </ion-fab>
+  
+</ion-content>

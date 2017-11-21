@@ -4,6 +4,7 @@ import { IonicPage,  NavController,  NavParams,  AlertController,  ViewControlle
 import { WsAmbientes } from '../../providers/wsAmbientes';
 import { Ambiente } from "../../models/ambiente.model";
 import { Produto } from "../../models/produto.model";
+import { WsUtil } from "../../providers/wsUtil";
 
 @IonicPage()
 @Component({
@@ -15,7 +16,8 @@ export class AddAmbientePage {
   ambiente: Ambiente = new Ambiente();
   produto: Produto = new Produto();
 
-  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsAmbientes, public alertCtrl: AlertController) {
+  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, 
+    public webservice: WsAmbientes, public alertCtrl: AlertController, public wsUtil: WsUtil) {
     if (navParams.get('ambiente')) {
       this.ambiente = navParams.get('ambiente') as Ambiente;
     } else {
@@ -32,16 +34,37 @@ export class AddAmbientePage {
 
 
   saveAmbiente(){
-    
-    this.webservice.saveAmbiente(this.ambiente).subscribe(
-      (res) => {
-        this.showAlert('Item salvo com sucesso!');
-        this.viewCtrl.dismiss();
-      },
-      (err) => {
-        this.showErrorAlert(err);
-      }
-    );    
+
+    if(!this.ambiente.endereco){
+      this.showErrorAlert("Preencha o Endereço API Rest!");
+    }else{
+      //valida endereco informado
+      this.wsUtil.vldUrl(this.ambiente.endereco).subscribe(
+        (res) => {
+          let retorno = res.json();
+
+          // verifica se o endereço é valido
+          if(retorno.result){
+            // salva ambiente
+            this.webservice.saveAmbiente(this.ambiente).subscribe(
+              (res) => {
+                this.showAlert('Item salvo com sucesso!');
+                this.viewCtrl.dismiss();
+              },
+              (err) => {
+                this.showErrorAlert(err);
+              }
+            );
+          }else{
+            this.showErrorAlert("O Endereço API Rest não é válido!");
+          }  
+
+        },
+        (err) => {
+          this.showErrorAlert(err);
+        }
+      );
+    }  
   }
   
   deleteAmbiente() {
@@ -90,7 +113,7 @@ export class AddAmbientePage {
 
   showErrorAlert(msg) {
     let alert = this.alertCtrl.create({
-      title: 'Erro',
+      title: 'Ops!',
       subTitle: msg,
       buttons: ['OK']
     });

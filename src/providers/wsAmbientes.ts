@@ -9,7 +9,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WsAmbientes {
 
-  private url:string = 'http://172.16.93.227:3000/api/ambiente';
+  private url:string = 'http://172.16.93.227:4000/api/ambiente/';
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
@@ -18,7 +18,22 @@ export class WsAmbientes {
   }
 
   public getAmbientes(idProduto: string) : Observable<Ambiente[]> {
-    return this.http.get(this.url + "/" + idProduto)
+    return this.http.get(this.url + idProduto)
+      .map(res => res.json())
+      .map(
+        (ambientes) => {
+          let newAmbientes : Ambiente[] = [];
+          ambientes.forEach(
+            element => {
+              newAmbientes.push(element);
+            }
+          );
+        return newAmbientes;
+      });
+  }
+
+  public getAllAmbientes() : Observable<Ambiente[]> {
+    return this.http.get(this.url)
       .map(res => res.json())
       .map(
         (ambientes) => {
@@ -42,6 +57,6 @@ export class WsAmbientes {
   }
 
   public deleteAmbiente(id: string){
-    return this.http.delete(this.url + '/' + id);
+    return this.http.delete(this.url + id);
   }
 }

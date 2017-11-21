@@ -11,7 +11,7 @@ import { WsAmbientes } from "./wsAmbientes";
 @Injectable()
 export class WsProdutos {
 
-  private url:string = 'http://172.16.93.227:3000/api/produto';
+  private url:string = 'http://172.16.93.227:4000/api/produto/';
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
 
@@ -62,7 +62,7 @@ export class WsProdutos {
     //   }
     // );
 
-    return this.http.delete(this.url + '/' + id);
+    return this.http.delete(this.url + id);
   }
   
 }

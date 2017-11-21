@@ -9,7 +9,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class WsEmpresas {
 
-  private url:string = 'http://172.16.93.227:3000/api/empresa';
+  private url:string = 'http://172.16.93.227:4000/api/empresa/';
   public retorno: any;
   public headers = new Headers({ 'Content-Type': 'application/json' });
   
@@ -18,7 +18,7 @@ export class WsEmpresas {
   }
 
   public getEmpresas(idProduto: string) : Observable<Empresa[]> {
-    return this.http.get(this.url + "/" + idProduto)
+    return this.http.get(this.url + idProduto)
       .map(res => res.json())
       .map(
         (empresas) => {
@@ -42,6 +42,6 @@ export class WsEmpresas {
   }
 
   public deleteEmpresa(id: string){
-    return this.http.delete(this.url + '/' + id);
+    return this.http.delete(this.url + id);
   }
 }

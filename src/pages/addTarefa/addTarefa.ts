@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage,  NavController,  NavParams,  AlertController,  ViewController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ViewController, LoadingController, ModalController } from 'ionic-angular';
 import { WsTarefas } from '../../providers/wsTarefas';
 import { Tarefa } from "../../models/tarefa.model";
 import { Mudanca } from "../../models/mudanca.model";
+import { WsUtil } from "../../providers/wsUtil";
+import { ExplorerPage } from "../explorer/explorer";
 
 @IonicPage()
 @Component({
@@ -13,10 +15,17 @@ export class AddTarefaPage {
 
   tarefa: Tarefa = new Tarefa();
   mudanca: Mudanca = new Mudanca();
+  arquivos: {title: string}[] = [];
 
-  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public webservice: WsTarefas, public alertCtrl: AlertController) {
+  constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, 
+    public webservice: WsTarefas, public alertCtrl: AlertController, public wsUtil: WsUtil, 
+    public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
     if (navParams.get('tarefa')) {
       this.tarefa = navParams.get('tarefa') as Tarefa;
+
+      if(this.tarefa.type == "arquivo"){
+        this.loadArquivos();
+      }
     } else {
       this.tarefa = Tarefa.adatp();
 
@@ -33,7 +42,6 @@ export class AddTarefaPage {
 
     }
   }
-
 
   saveTarefa(){
     
@@ -101,5 +109,41 @@ export class AddTarefaPage {
     });
     alert.present();
   }
+
+  // Tela Explorer para type Arquivos
+  loadPastas() {
+   let explorerModal = this.modalCtrl.create(ExplorerPage, { mudanca: this.mudanca });
+   explorerModal.onDidDismiss(data => {
+     this.tarefa.path = data.endereco;
+
+     this.loadArquivos();
+
+   });
+   explorerModal.present();
+ }
+
+ loadArquivos(){
+
+    if(this.tarefa.path){
+      let loaderArq = this.loadingCtrl.create({
+        content: "Listando arquivos..."
+      });
+      loaderArq.present();
+
+      this.wsUtil.buscaArquivo(this.tarefa.path).subscribe(
+        (res) => {
+          let retorno = res.json();
+          retorno.forEach(element => {
+            this.arquivos.push({"title" : element.arquivo});
+          });
+          loaderArq.dismiss();
+        },
+        (err) => {
+          loaderArq.dismiss();
+          this.showErrorAlert(err);
+        }
+      );
+    }
+ }
 
 }

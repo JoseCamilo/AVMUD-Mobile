@@ -3,6 +3,7 @@ import { NavController, Platform, AlertController, LoadingController, App } from
 import { WsJanelas } from "../../providers/wsJanelas";
 import { HomePage } from "../home/home";
 import { File } from '@ionic-native/file';
+import { WsUtil } from "../../providers/wsUtil";
 
 
 @Component({
@@ -11,34 +12,172 @@ import { File } from '@ionic-native/file';
 })
 export class LoginPage {
   
- 
+  public email: string;
+  public senha: string;
+  public salvar: boolean = false;
+  public falhou: boolean = false;
+
   constructor(public navCtrl: NavController, public platform: Platform, public webservice: WsJanelas, public alertCtrl: AlertController, 
-  public loadingCtrl: LoadingController, public app: App, private file: File) {
-    
+  public loadingCtrl: LoadingController, public app: App, public file: File, public wsUtil: WsUtil) {
+    this.leLogin();
   }
 
 
   ionViewDidEnter() {
-
+    
   }
 
   login(){
-    this.app.getRootNav().setRoot(HomePage);
-    this.app.getRootNav().popToRoot();
 
-    //document.addEventListener('deviceready', function () {
-      // verifica o arquivo de login
-      this.file.checkFile(this.file.dataDirectory + "avmud", "login_file.json")
-        .then(function (success) {
-          // success
-          console.log("arqLogin", success);
-        }, function (error) {
-          // error
-          console.log("arqLogin", error);
-        });
-    //});
+    let loaderLogin = this.loadingCtrl.create({
+      content: "Aguarde..."
+    });
+    loaderLogin.present();
 
-    console.log(this.titleize("JOSÉ FERNANDO CAMILO DA SILVA"));
+    this.wsUtil.authFluig(this.email,this.senha).subscribe(
+      (res) => {
+        loaderLogin.dismiss();
+
+        if(res.id){
+          this.app.getRootNav().setRoot(HomePage);
+          this.app.getRootNav().popToRoot();
+          
+          if(this.salvar){
+            this.escreveLogin();
+          }
+
+        }
+      },
+      (err) => {
+        loaderLogin.dismiss();
+
+        console.log(err);
+        
+        if(err.errorCode == 400){
+          this.falhou = true;
+        }else{
+          this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
+        }
+        
+      }
+    );
+
+    
+    
+    //console.log(this.titleize("JOSÉ FERNANDO CAMILO DA SILVA"));
+  }
+
+  escreveLogin(){
+    
+    var that = this;
+    // Verifica Diretorio
+    this.file.checkDir(this.file.dataDirectory, 'avmud')
+      .then(function (success) {
+        // success
+        console.log("checkDirEsc",success);
+
+        var conteudo = '{"email": "'+that.email+'", "senha":"'+that.senha+'" }';
+        console.log("conteudo", conteudo);
+         // WRITE
+        that.file.writeFile(that.file.dataDirectory + "avmud", "login_file.txt", conteudo, {replace: true})
+          .then(function (success) {
+            // success
+            console.log("writeEsc",success);
+            
+          }, function (error) {
+            // error
+            console.log("writeEsc",error);
+          });
+
+      }, function (error) {
+        // error
+        console.log("checkDirEsc",error);
+
+        // Cria diretorio
+        that.file.createDir(that.file.dataDirectory,"avmud", true)
+          .then(function (success) {
+            // success
+            console.log("createEsc",success);
+
+            var conteudo = '{"email": "'+that.email+'", "senha":"'+that.senha+'" }';
+            console.log("conteudo", conteudo);
+            // WRITE
+            that.file.writeFile(that.file.dataDirectory + "avmud", "login_file.txt", conteudo, {replace: true})
+              .then(function (success) {
+                // success
+                console.log("writeEsc",success);
+                
+              }, function (error) {
+                // error
+                console.log("writeEsc",error);
+              });
+
+          }, function (error) {
+            // error
+            console.log("createEsc",error);
+          });
+
+      });
+
+  }
+  
+  
+
+  leLogin(){
+    var that = this;
+
+    document.addEventListener('deviceready', function () {
+      
+      // // verifica se existe a pasta
+      // that.file.checkDir(that.file.dataDirectory, "avmud")
+      //   .then(function (success) {
+      //     // success
+      //     console.log("checkDirLe", success);
+
+          // verifica o arquivo de login
+          that.file.checkFile(that.file.dataDirectory + "avmud/", "login_file.txt")
+            .then(function (success) {
+              // success
+              console.log("checkLe", success);
+              
+              // le o arquivo de Login
+              that.file.readAsText(that.file.dataDirectory + "avmud", "login_file.txt")
+                .then(function (success) {
+
+                  let retorno = JSON.parse(success);
+                  // success
+                  console.log("readLe", JSON.parse(success));
+                  
+                  that.gravaView(retorno.email,retorno.senha);
+                
+                }, function (error) {
+                  // error
+                  console.log("readLe", error);
+                  
+                });
+
+            
+            }, function (error) {
+              // error
+              console.log("checkLe", error);
+              
+            }); 
+
+        
+        // }, function (error) {
+        //   // error
+        //   console.log("checkDirLe", error);
+          
+        // });
+      
+      
+    });
+  }
+ 
+
+  gravaView(email, senha){
+    this.email = email;
+    this.senha = senha;
   }
 
   titleize(text) {
