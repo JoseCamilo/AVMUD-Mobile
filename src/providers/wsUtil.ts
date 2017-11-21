@@ -43,7 +43,7 @@ export class WsUtil {
   }
 
   public authFluig(user: string, pwd: string){
-      let myHeaders = new Headers({ 'userrede': user, "pwdrede" : pwd });
+      let myHeaders = new Headers({ 'Content-Type': 'application/json', 'userrede': user, "pwdrede" : pwd });
       let opt = new RequestOptions({
         headers: myHeaders
         }) 
@@ -53,10 +53,9 @@ export class WsUtil {
         let retorno = res.json();
         return retorno;
         })
-    .map((err) => {
-        let retorno = err.json();
-        return retorno;
-        });
+    .map( (err) => {
+        return err;
+    });
   }
 
 }

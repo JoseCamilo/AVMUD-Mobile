@@ -19,12 +19,61 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public platform: Platform, public webservice: WsJanelas, public alertCtrl: AlertController, 
   public loadingCtrl: LoadingController, public app: App, public file: File, public wsUtil: WsUtil) {
-    this.leLogin();
+    
   }
 
 
-  ionViewDidEnter() {
-    
+  ionViewCanEnter() {
+    console.log("entrou no can")
+    var that = this;
+
+    document.addEventListener('deviceready', function () {
+      // verifica o arquivo de login
+      that.file.checkFile(that.file.dataDirectory + "avmud/", "login_file.txt")
+        .then(function (success) {
+          // success
+          console.log("checkLe", success);
+          
+          // le o arquivo de Login
+          that.file.readAsText(that.file.dataDirectory + "avmud", "login_file.txt")
+            .then(function (success) {
+
+              let retorno = JSON.parse(success);
+              // success
+              console.log("readLe", JSON.parse(success));
+              
+              that.email = retorno.email;
+              that.senha = retorno.senha;
+
+             
+            
+            }, function (error) {
+              // error
+              console.log("readLe", error);
+
+              
+              
+            });
+
+        
+        }, function (error) {
+          // error
+          console.log("checkLe", error);
+
+          
+          
+        });
+    });
+
+    let loaderLogin = this.loadingCtrl.create({
+      content: "Aguarde..."
+    });
+    loaderLogin.present();
+    setTimeout(() => {
+
+      loaderLogin.dismiss();
+      return true;
+    }, 3000);
   }
 
   login(){
@@ -50,10 +99,8 @@ export class LoginPage {
       },
       (err) => {
         loaderLogin.dismiss();
-
-        console.log(err);
         
-        if(err.errorCode == 400){
+        if(err.status == 400){
           this.falhou = true;
         }else{
           this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
@@ -147,8 +194,10 @@ export class LoginPage {
                   let retorno = JSON.parse(success);
                   // success
                   console.log("readLe", JSON.parse(success));
-                  
-                  that.gravaView(retorno.email,retorno.senha);
+                    
+                  that.email = retorno.email;
+                  that.senha = retorno.senha;
+                
                 
                 }, function (error) {
                   // error
@@ -174,11 +223,6 @@ export class LoginPage {
     });
   }
  
-
-  gravaView(email, senha){
-    this.email = email;
-    this.senha = senha;
-  }
 
   titleize(text) {
       var loweredText = text.toLowerCase();
