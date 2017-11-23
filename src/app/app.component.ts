@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, App } from 'ionic-angular';
+import { Platform, App, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -19,8 +19,10 @@ export class MyApp {
   private ambientePage;
   private avisoPage;
   private produtoPage;
+  private userName: string;
+  private userMail: string;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public app: App, events: Events) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -33,6 +35,18 @@ export class MyApp {
     this.ambientePage = AmbientePage;
     this.avisoPage = AvisoPage;
     this.produtoPage = ProdutoPage;
+
+    events.subscribe('username:changed', username => {
+      if(username !== undefined && username !== ""){
+        this.userName = username;
+      }
+   });
+
+   events.subscribe('usermail:changed', usermail => {
+      if(usermail !== undefined && usermail !== ""){
+        this.userMail = usermail;
+      }
+   });
 
   }
 

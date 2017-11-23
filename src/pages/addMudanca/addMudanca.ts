@@ -55,6 +55,11 @@ export class AddMudancaPage {
   readEmpresas() {
     this.empresas = [];
 
+    let loader = this.loadingCtrl.create({
+      content: "Buscando Empresas..."
+    });
+    loader.present();
+
     this.janela.idProduto.forEach(produto => {
 
       this.wsEmpresas.getEmpresas(produto).subscribe(
@@ -62,6 +67,8 @@ export class AddMudancaPage {
           res.forEach(empresa => {
             this.empresas.push(empresa);
           });
+
+          loader.dismiss();
         }
       );
     });
@@ -71,6 +78,11 @@ export class AddMudancaPage {
 
   readAmbientes() {
     this.ambientes = [];
+
+    let loader = this.loadingCtrl.create({
+      content: "Buscando Ambientes..."
+    });
+    loader.present();
 
     this.janela.idProduto.forEach(produto => {
 
@@ -85,6 +97,7 @@ export class AddMudancaPage {
       );
     });
 
+    loader.dismiss();
   }
 
   readTasksJira(){

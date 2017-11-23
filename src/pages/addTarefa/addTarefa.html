@@ -14,6 +14,7 @@
         <ion-option value="arquivo">Arquivo</ion-option>
         <ion-option value="tabela">Tabela</ion-option>
         <ion-option value="campo">Campo</ion-option>
+        <ion-option value="atributo">Atributo de Campo</ion-option>
         <ion-option value="indice">Índice</ion-option>
         <ion-option value="changeset">ChangeSet</ion-option>
         <ion-option value="fonte">Fonte</ion-option>
@@ -46,6 +47,20 @@
     <ion-item *ngIf='tarefa.type === "campo"'>
       <ion-label floating>Campo</ion-label>
       <ion-input type="text" [(ngModel)]="tarefa.field"></ion-input>
+    </ion-item>
+
+    <!-- ATRIBUTO -->
+    <ion-item *ngIf='tarefa.type === "atributo"'>
+      <ion-label floating>Campo</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.field"></ion-input>
+    </ion-item>
+    <ion-item *ngIf='tarefa.type === "atributo"'>
+      <ion-label floating>Atributo do Campo</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.atributo"></ion-input>
+    </ion-item>
+    <ion-item *ngIf='tarefa.type === "atributo"'>
+      <ion-label floating>Valor</ion-label>
+      <ion-input type="text" [(ngModel)]="tarefa.valor"></ion-input>
     </ion-item>
 
     <!-- INDICE -->

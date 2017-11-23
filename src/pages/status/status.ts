@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Janela } from './../../models/janela.model';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { Tarefa } from "../../models/tarefa.model";
 import { WsTarefas } from "../../providers/wsTarefas";
 import { WsMudancas } from "../../providers/wsMudancas";
@@ -25,7 +25,9 @@ export class StatusPage {
   private tarefa: Tarefa = new Tarefa();
   private tarefas: Tarefa[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public wsTarefas: WsTarefas, public wsMudancas: WsMudancas, private socialSharing: SocialSharing,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public wsTarefas: WsTarefas, 
+  public wsMudancas: WsMudancas, private socialSharing: SocialSharing,public alertCtrl: AlertController, 
+  public loadingCtrl: LoadingController) {
     
     if (navParams.get('janela')) {
       this.janela = navParams.get('janela') as Janela;
@@ -59,17 +61,38 @@ export class StatusPage {
   readTarefas() {
     if (this.janela._id){
 
+      let loaderSts = this.loadingCtrl.create({
+        content: "Lendo Tarefas..."
+      });
+      loaderSts.present();
+
+
       this.wsMudancas.getMudancas(this.janela._id).subscribe(
         (resM) => {
 
+          let last = resM.length;
+          let atual = 0;
+
+          console.log("total", last);
           resM.forEach(Melement => {
 
+            atual++;
+            console.log("incremento", atual);
+            
             this.wsTarefas.getTarefas(Melement._id).subscribe(
               (resT) => {
+                
+                console.log("verifica", last);
+                console.log("verifica", atual);
 
                 resT.forEach(Telement => {
                   this.tarefas.push(Telement);
                 });
+
+                if(last == atual){
+                  loaderSts.dismiss();
+                  console.log("fim");
+                }
 
               }
             );
@@ -81,12 +104,19 @@ export class StatusPage {
 
     }else if(this.mudanca._id){
 
+      let loaderSts = this.loadingCtrl.create({
+        content: "Lendo Tarefas..."
+      });
+      loaderSts.present();
+
       this.wsTarefas.getTarefas(this.mudanca._id).subscribe(
         (resT) => {
 
           resT.forEach(Telement => {
             this.tarefas.push(Telement);
           });
+
+          loaderSts.dismiss();
 
         }
       );

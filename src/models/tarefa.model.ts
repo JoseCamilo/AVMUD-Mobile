@@ -24,6 +24,8 @@ export class Tarefa {
     empresa: [string];
     ambiente: [string];
     arquivo: [string];
+    atributo: string;
+    valor: string;
 
     
     static adatp(): Tarefa {
@@ -49,6 +51,8 @@ export class Tarefa {
         tarefa.empresa = [""];
         tarefa.ambiente = [""];
         tarefa.arquivo = [""];
+        tarefa.atributo = "";
+        tarefa.valor = "";
         return tarefa;
     }    
 }    

@@ -42,9 +42,19 @@ export class TarefaPage {
   }
 
   readTarefas() {
+    let loaderTarefa = this.loadingCtrl.create({
+      content: "Buscando Tarefas..."
+    });
+    loaderTarefa.present();
+
     this.webservice.getTarefas(this.mudanca._id).subscribe(
       (res) => {
         this.tarefas = res;
+        loaderTarefa.dismiss();
+      },
+      (err) => {
+        loaderTarefa.dismiss();
+        this.showErrorAlert("Não foi possível buscar tarefas!");
       }
     );
   }
@@ -159,6 +169,7 @@ export class TarefaPage {
                 that.showAlert('Tarefas Enviadas!');
               },
               (err) => {
+                loaderJira.dismiss();
                 that.showErrorAlert(err);
               }
             )
@@ -168,18 +179,4 @@ export class TarefaPage {
     });
     confirm.present();
   }
-
-  // presentLoading() {
-  //   let loader = this.loadingCtrl.create({
-  //     content: "Criando Sub-Task no Jira..."
-  //   });
-  //   loader.present();
-
-  //   setTimeout(() => {
-  //     loader.dismiss();
-  //     this.showAlert('PAM-803 criada para a Mudança: '+this.mudanca.title);
-  //   }, 10000);
-  // }
-  //-- FIM JIRA
-
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { WsEmpresas } from '../../providers/wsEmpresas';
 import { NavController, NavParams } from 'ionic-angular';
-import { AlertController, ViewController, ModalController } from 'ionic-angular';
+import { AlertController, ViewController, ModalController, LoadingController } from 'ionic-angular';
 import { Produto } from "../../models/produto.model";
 import { Empresa } from "../../models/empresa.model";
 import { AddEmpresaPage } from "../addEmpresa/addEmpresa";
@@ -16,7 +16,7 @@ export class EmpresaPage {
   empresas: Empresa[] = [];
   produto: Produto = new Produto();
 
-  constructor(public webservice: WsEmpresas, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, public viewCtrl: ViewController, public modalCtrl: ModalController) {
+  constructor(public webservice: WsEmpresas, public navParams: NavParams, public navCtrl: NavController, public alertCtrl: AlertController, public viewCtrl: ViewController, public modalCtrl: ModalController, public loadingCtrl: LoadingController) {
 
     if (navParams.get('produto')) {
       this.produto = navParams.get('produto') as Produto;
@@ -30,9 +30,15 @@ export class EmpresaPage {
 
   readEmpresas() {
 
+    let loader = this.loadingCtrl.create({
+      content: "Buscando Empresas..."
+    });
+    loader.present();
+
     this.webservice.getEmpresas(this.produto._id).subscribe(
       (res) => {
         this.empresas = res;
+        loader.dismiss();
       }
     );
   }

@@ -49,7 +49,15 @@ export class AddJiraPage {
 
   createSubTask(){
     
+    if(!this.mudanca.idPAM){
+      this.showErrorAlert("A Mudança não possui PAM Principal!");
+    }else if(!this.issueType){
+      this.showErrorAlert("O campo Tipo da Tarefa é obrigatório!");
+    }else if(!this.scrumMaster){
+      this.showErrorAlert("O campo Scrum Master é obrigatório!");
+    }else{
       this.showConfirm();
+    }
   }
 
   showConfirm() {
@@ -81,6 +89,7 @@ export class AddJiraPage {
                 that.showAlert('Foi gerada a SubTask: ' + res.idSubTaskPAM);                
               },
               (err) => {
+                loaderJira.dismiss();
                 that.showErrorAlert(err);
               }
             )

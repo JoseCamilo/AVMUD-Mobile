@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, AlertController, LoadingController, App } from 'ionic-angular';
+import { NavController, Platform, AlertController, LoadingController, App, Events } from 'ionic-angular';
 import { WsJanelas } from "../../providers/wsJanelas";
 import { HomePage } from "../home/home";
 import { File } from '@ionic-native/file';
@@ -18,7 +18,9 @@ export class LoginPage {
   public falhou: boolean = false;
 
   constructor(public navCtrl: NavController, public platform: Platform, public webservice: WsJanelas, public alertCtrl: AlertController, 
-  public loadingCtrl: LoadingController, public app: App, public file: File, public wsUtil: WsUtil) {
+  public loadingCtrl: LoadingController, public app: App, public file: File, public wsUtil: WsUtil, public events: Events) {
+
+    
     
   }
 
@@ -78,40 +80,44 @@ export class LoginPage {
 
   login(){
 
-    let loaderLogin = this.loadingCtrl.create({
-      content: "Aguarde..."
-    });
-    loaderLogin.present();
+    this.app.getRootNav().setRoot(HomePage);
+    this.app.getRootNav().popToRoot();
 
-    this.wsUtil.authFluig(this.email,this.senha).subscribe(
-      (res) => {
-        loaderLogin.dismiss();
+    // let loaderLogin = this.loadingCtrl.create({
+    //   content: "Aguarde..."
+    // });
+    // loaderLogin.present();
 
-        if(res.id){
-          this.app.getRootNav().setRoot(HomePage);
-          this.app.getRootNav().popToRoot();
+    // this.wsUtil.authFluig(this.email,this.senha).subscribe(
+    //   (res) => {
+    //     loaderLogin.dismiss();
+
+    //     if(res.id){
+
+    //       this.events.publish('username:changed', this.titleize(res.fullName));
+    //       this.events.publish('usermail:changed', res.email);
+
+    //       this.app.getRootNav().setRoot(HomePage);
+    //       this.app.getRootNav().popToRoot();
           
-          if(this.salvar){
-            this.escreveLogin();
-          }
+    //       if(this.salvar){
+    //         this.escreveLogin();
+    //       }
 
-        }
-      },
-      (err) => {
-        loaderLogin.dismiss();
+    //     }
+    //   },
+    //   (err) => {
+    //     loaderLogin.dismiss();
         
-        if(err.status == 400){
-          this.falhou = true;
-        }else{
-          this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
-        }
+    //     if(err.status == 400){
+    //       this.falhou = true;
+    //     }else{
+    //       this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
+    //     }
         
-      }
-    );
+    //   }
+    // );
 
-    
-    
-    //console.log(this.titleize("JOSÉ FERNANDO CAMILO DA SILVA"));
   }
 
   escreveLogin(){

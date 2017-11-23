@@ -23,6 +23,8 @@ export class AddAvisoPage {
 
 
   saveAviso(){
+
+    this.aviso.comentario += " - " + this.getData();
     
     this.webservice.saveAviso(this.aviso).subscribe(
       (res) => {
@@ -87,6 +89,18 @@ export class AddAvisoPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  getData(){
+    let currentdate = new Date();
+
+    let datetime =  currentdate.getDate() + "/"
+                    + (currentdate.getMonth()+1)  + "/" 
+                    + currentdate.getFullYear() + " "  
+                    + currentdate.getHours() + ":"  
+                    + ("00" + currentdate.getMinutes()).slice(-2) ;
+
+    return datetime;
   }
 
 }

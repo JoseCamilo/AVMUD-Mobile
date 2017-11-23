@@ -72,6 +72,9 @@ export class WsJira {
                     this.wsMudanca.saveMudanca(mudanca).subscribe();
                     
                     return mudanca;
+              })
+              .map((err) => {
+                return err;
               });
   }
 
