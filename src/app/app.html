@@ -23,23 +23,15 @@
     
     </ion-list>
 
+
     <ion-list>
-      <ion-item-group>
-        <button ion-item menuClose (click)="openPage(homePage)">
-          Janelas
-        </button>
-        <button ion-item menuClose (click)="openPage(produtoPage)">
-          Produtos
-        </button>
-        <button ion-item menuClose (click)="openPage(avisoPage)">
-          Avisos
-        </button>
-        <button ion-item menuClose (click)="logout()">
-          Sair
-        </button>
-      </ion-item-group>
-        
+      <button menuClose ion-item 
+        *ngFor="let pagina of paginas" 
+        (click)="abrePagina(pagina)">
+        {{pagina.titulo}}
+      </button>
     </ion-list>
+
   </ion-content>
 </ion-menu>
 

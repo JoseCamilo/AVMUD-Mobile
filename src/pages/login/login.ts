@@ -68,43 +68,44 @@ export class LoginPage {
 
   login(){
 
-    // this.app.getRootNav().setRoot(HomePage);
-    // this.app.getRootNav().popToRoot();
+    this.events.publish('username:changed', this.titleize(this.email));
+    this.events.publish('usermail:changed', this.email);
 
-    let loaderLogin = this.loadingCtrl.create({
-      content: "Aguarde..."
-    });
-    loaderLogin.present();
+    this.navCtrl.setRoot(HomePage);
 
-    this.wsUtil.authFluig(this.email,this.senha).subscribe(
-      (res) => {
-        loaderLogin.dismiss();
+    // let loaderLogin = this.loadingCtrl.create({
+    //   content: "Aguarde..."
+    // });
+    // loaderLogin.present();
 
-        if(res.id){
+    // this.wsUtil.authFluig(this.email,this.senha).subscribe(
+    //   (res) => {
+    //     loaderLogin.dismiss();
 
-          this.events.publish('username:changed', this.titleize(res.fullName));
-          this.events.publish('usermail:changed', res.email);
+    //     if(res.id){
 
-          this.app.getRootNav().setRoot(HomePage);
-          this.app.getRootNav().popToRoot();
+    //       this.events.publish('username:changed', this.titleize(res.fullName));
+    //       this.events.publish('usermail:changed', res.email);
+
+    //       this.navCtrl.setRoot(HomePage);
           
-          if(this.salvar){
-            this.escreveLogin();
-          }
+    //       if(this.salvar){
+    //         this.escreveLogin();
+    //       }
 
-        }
-      },
-      (err) => {
-        loaderLogin.dismiss();
+    //     }
+    //   },
+    //   (err) => {
+    //     loaderLogin.dismiss();
         
-        if(err.status == 400){
-          this.falhou = true;
-        }else{
-          this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
-        }
+    //     if(err.status == 400){
+    //       this.falhou = true;
+    //     }else{
+    //       this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
+    //     }
         
-      }
-    );
+    //   }
+    // );
 
   }
 
