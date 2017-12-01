@@ -45,6 +45,7 @@ export class WsTarefas {
   }
 
   public startTarefa(tarefa: Tarefa){
+    console.log(this.url + "inicia", tarefa._id);
     return this.http.put(this.url + "inicia", {_id: tarefa._id});
   }
   

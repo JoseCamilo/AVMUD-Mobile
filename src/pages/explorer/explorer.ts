@@ -73,6 +73,10 @@ export class ExplorerPage {
         });
 
         loaderAmb.dismiss();
+      },
+      (err) => {
+        loaderAmb.dismiss();
+        this.showErrorAlert(err);
       }
     );
   }

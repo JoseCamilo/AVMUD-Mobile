@@ -67,7 +67,8 @@ export class TarefaPage {
 
   itemTapped(event, tarefa) {
     this.navCtrl.push(AddTarefaPage, {
-      tarefa: tarefa
+      tarefa: tarefa,
+      mudanca: this.mudanca
     });
   }
 
@@ -90,6 +91,7 @@ export class TarefaPage {
   }
 
   startTarefa(tarefa){
+    console.log("start", tarefa);
     this.webservice.startTarefa(tarefa).subscribe(
       (res) => {
         this.readTarefas();

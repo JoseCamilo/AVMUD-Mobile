@@ -1,6 +1,6 @@
 import { Janela } from './../../models/janela.model';
 import { Component } from '@angular/core';
-import { IonicPage,  NavController,  NavParams,  AlertController,  ViewController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ViewController, LoadingController } from 'ionic-angular';
 import { WsAmbientes } from '../../providers/wsAmbientes';
 import { Ambiente } from "../../models/ambiente.model";
 import { Produto } from "../../models/produto.model";
@@ -17,7 +17,7 @@ export class AddAmbientePage {
   produto: Produto = new Produto();
 
   constructor(private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, 
-    public webservice: WsAmbientes, public alertCtrl: AlertController, public wsUtil: WsUtil) {
+    public webservice: WsAmbientes, public alertCtrl: AlertController, public wsUtil: WsUtil, public loadingCtrl: LoadingController) {
     if (navParams.get('ambiente')) {
       this.ambiente = navParams.get('ambiente') as Ambiente;
     } else {
@@ -38,11 +38,18 @@ export class AddAmbientePage {
     if(!this.ambiente.endereco){
       this.showErrorAlert("Preencha o Endereço API Rest!");
     }else{
+
+      let loaderAPI = this.loadingCtrl.create({
+        content: "Verificando Endereço de API..."
+      });
+      loaderAPI.present();
+
       //valida endereco informado
       this.wsUtil.vldUrl(this.ambiente.endereco).subscribe(
         (res) => {
+          loaderAPI.dismiss();
           let retorno = res.json();
-
+          
           // verifica se o endereço é valido
           if(retorno.result){
             // salva ambiente
@@ -61,6 +68,7 @@ export class AddAmbientePage {
 
         },
         (err) => {
+          loaderAPI.dismiss();
           this.showErrorAlert(err);
         }
       );

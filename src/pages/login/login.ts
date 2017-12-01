@@ -26,44 +26,32 @@ export class LoginPage {
 
 
   ionViewCanEnter() {
-    console.log("entrou no can")
+
     var that = this;
 
     document.addEventListener('deviceready', function () {
       // verifica o arquivo de login
       that.file.checkFile(that.file.dataDirectory + "avmud/", "login_file.txt")
         .then(function (success) {
-          // success
-          console.log("checkLe", success);
-          
+
           // le o arquivo de Login
           that.file.readAsText(that.file.dataDirectory + "avmud", "login_file.txt")
             .then(function (success) {
 
               let retorno = JSON.parse(success);
-              // success
-              console.log("readLe", JSON.parse(success));
-              
+
               that.email = retorno.email;
               that.senha = retorno.senha;
+              that.salvar = true;
 
              
             
-            }, function (error) {
-              // error
-              console.log("readLe", error);
-
-              
+            }, function (error) {            
               
             });
 
-        
         }, function (error) {
-          // error
-          console.log("checkLe", error);
 
-          
-          
         });
     });
 
@@ -75,48 +63,48 @@ export class LoginPage {
 
       loaderLogin.dismiss();
       return true;
-    }, 3000);
+    }, 1000);
   }
 
   login(){
 
-    this.app.getRootNav().setRoot(HomePage);
-    this.app.getRootNav().popToRoot();
+    // this.app.getRootNav().setRoot(HomePage);
+    // this.app.getRootNav().popToRoot();
 
-    // let loaderLogin = this.loadingCtrl.create({
-    //   content: "Aguarde..."
-    // });
-    // loaderLogin.present();
+    let loaderLogin = this.loadingCtrl.create({
+      content: "Aguarde..."
+    });
+    loaderLogin.present();
 
-    // this.wsUtil.authFluig(this.email,this.senha).subscribe(
-    //   (res) => {
-    //     loaderLogin.dismiss();
+    this.wsUtil.authFluig(this.email,this.senha).subscribe(
+      (res) => {
+        loaderLogin.dismiss();
 
-    //     if(res.id){
+        if(res.id){
 
-    //       this.events.publish('username:changed', this.titleize(res.fullName));
-    //       this.events.publish('usermail:changed', res.email);
+          this.events.publish('username:changed', this.titleize(res.fullName));
+          this.events.publish('usermail:changed', res.email);
 
-    //       this.app.getRootNav().setRoot(HomePage);
-    //       this.app.getRootNav().popToRoot();
+          this.app.getRootNav().setRoot(HomePage);
+          this.app.getRootNav().popToRoot();
           
-    //       if(this.salvar){
-    //         this.escreveLogin();
-    //       }
+          if(this.salvar){
+            this.escreveLogin();
+          }
 
-    //     }
-    //   },
-    //   (err) => {
-    //     loaderLogin.dismiss();
+        }
+      },
+      (err) => {
+        loaderLogin.dismiss();
         
-    //     if(err.status == 400){
-    //       this.falhou = true;
-    //     }else{
-    //       this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
-    //     }
+        if(err.status == 400){
+          this.falhou = true;
+        }else{
+          this.showErrorAlert("Problema ao tentar se comunicar com o Identity!");
+        }
         
-    //   }
-    // );
+      }
+    );
 
   }
 

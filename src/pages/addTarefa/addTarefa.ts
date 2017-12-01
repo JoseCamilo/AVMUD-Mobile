@@ -23,6 +23,13 @@ export class AddTarefaPage {
     if (navParams.get('tarefa')) {
       this.tarefa = navParams.get('tarefa') as Tarefa;
 
+      if (navParams.get('mudanca')) {
+        this.mudanca = navParams.get('mudanca') as Mudanca;
+
+      } else {
+        this.mudanca = Mudanca.adatp();
+      }
+
       if(this.tarefa.type == "arquivo"){
         this.loadArquivos();
       }
@@ -112,6 +119,7 @@ export class AddTarefaPage {
 
   // Tela Explorer para type Arquivos
   loadPastas() {
+    console.log("loadpastas", this.mudanca);
    let explorerModal = this.modalCtrl.create(ExplorerPage, { mudanca: this.mudanca });
    explorerModal.onDidDismiss(data => {
      this.tarefa.path = data.endereco;
@@ -130,6 +138,7 @@ export class AddTarefaPage {
       });
       loaderArq.present();
 
+      this.arquivos = [];
       this.wsUtil.buscaArquivo(this.tarefa.path).subscribe(
         (res) => {
           let retorno = res.json();
